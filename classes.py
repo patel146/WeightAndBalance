@@ -7,7 +7,6 @@ class Aircraft:
         for name, system in self.systems.items():
             total_weight += system.weight
             numerator += system.weight * system.loc
-            print(total_weight)
         return numerator / total_weight
 
     def W_total(self):

@@ -25,7 +25,6 @@ def CGExcursion(aircraft):
         aircraft.systems["Fuel"].weight -= 1
         x.append(aircraft.CG())
         y.append(aircraft.W_total())
-        print("W-total:" + str(aircraft.W_total()))
 
     ax.plot(x, y, label="Fuel Burn")
 
@@ -37,6 +36,7 @@ def CGExcursion(aircraft):
     y.append(aircraft.W_total())
 
     ax.plot(x, y, color="r", label="Payload Drop")
-
+    plt.xlabel(r"CG [% $l_f$]")
+    plt.ylabel(r"$W_T$ [lbf]")
     plt.legend()
     plt.show()
