@@ -2,19 +2,20 @@ from classes import Aircraft, System
 from ClassIIEstimates import estimates
 import plotting as plot
 
-#TODO recursive fuel and wing location as close to CG as possible
-#TODO do CG as percentage of MAC
-#TODO radar - 250 lbs at nose (around 5% lf)
-#TODO radar - 200 lbs between nose and cockpit(around 5% lf)
+# TODO recursive fuel and wing location as close to CG as possible
+# TODO do CG as percentage of MAC
+# TODO radar - 250 lbs at nose (around 5% lf)
+# TODO radar - 200 lbs between nose and cockpit(around 5% lf)
 
+wing_pos = 0.546
 
 concept = Aircraft()
 
-fuel = System("Fuel", 17392, 0.546, concept)
+fuel = System("Fuel", 17392, wing_pos, concept)
 
 payload = System("Payload", 7000, 0.50, concept)
 
-wing = System("Wing", estimates["Wing"], 0.546, concept)
+wing = System("Wing", estimates["Wing"], wing_pos, concept)
 
 powerplant = System("Powerplant", 3750, 0.85, concept)
 

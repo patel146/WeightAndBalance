@@ -1,3 +1,6 @@
+from ClassIIEstimates import l_f
+
+
 class Aircraft:
     systems = {}
 
@@ -8,6 +11,8 @@ class Aircraft:
             total_weight += system.weight
             numerator += system.weight * system.loc
         return numerator / total_weight
+
+
 
     def W_total(self):
         total_weight = 0

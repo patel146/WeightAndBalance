@@ -133,7 +133,7 @@ def dyn_pres(dens, speed):
 
 
 q_bar_D = dyn_pres(0.4135 * kg_o_m3, 400 * knts)  # design dive dynamic pressure in psf (pounds per sq.ft)
-l_f = 60 * ui.ft  # length of fuselage (should be in ft)
+l_f = 54 * ui.ft  # length of fuselage (should be in ft)
 h_f = 15 * ui.ft  # maximum fuselage height (should be in ft)
 
 

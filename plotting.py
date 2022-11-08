@@ -28,8 +28,17 @@ def CGPlot(aircraft):
     plt.show()
 
 
+def CG_MAC(l_f, wing_pos, CG):
+    MAC = 10.45 / l_f
+    LEMAC = wing_pos - (MAC / 22)
+    TEMAC = wing_pos + (MAC / 2)
+    return (CG - LEMAC) / MAC
+
+
 def CGExcursion(aircraft):
-    initial_CG = aircraft.CG()
+    l_f = 54
+    wing_pos = 0.546
+    initial_CG = CG_MAC(l_f, wing_pos, aircraft.CG())
     static_margin = 0.08
     fig, ax = plt.subplots()
     x = []
@@ -38,7 +47,7 @@ def CGExcursion(aircraft):
     # Fuel burn
     for i in fuel:
         aircraft.systems["Fuel"].weight -= 1
-        x.append(aircraft.CG())
+        x.append(CG_MAC(l_f, wing_pos, aircraft.CG()))
         y.append(aircraft.W_total())
 
     ax.plot(x, y, label="Fuel Burn")
@@ -47,17 +56,17 @@ def CGExcursion(aircraft):
     del y[:-1]
     # Payload Drop
     aircraft.systems["Payload"].weight = 0
-    x.append(aircraft.CG())
+    x.append(CG_MAC(l_f, wing_pos, aircraft.CG()))
     y.append(aircraft.W_total())
 
     ax.plot(x, y, color="r", label="Payload Drop")
 
     # Static Margin
-    ax.axvline(x=initial_CG+static_margin, linestyle = '--', color='b', label='Static Margin')
+    ax.axvline(x=initial_CG + static_margin, linestyle='--', color='b', label='Static Margin')
     ax.axvspan(0, initial_CG + static_margin, alpha=0.2, label="Stable Region")
 
-    plt.xlabel(r"CG [% $l_f$]")
-    plt.xlim([initial_CG * 0.99, initial_CG+static_margin*1.01])
+    plt.xlabel(r"CG [% MAC]")
+    plt.xlim([initial_CG * 0.8, initial_CG + static_margin * 1.4])
     plt.ylabel(r"$W_T$ [lbf]")
     plt.legend()
     plt.tight_layout()
