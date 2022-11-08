@@ -6,7 +6,7 @@ concept = Aircraft()
 
 fuel = System("Fuel", 16000, 0.54, concept)
 
-payload = System("Payload", 14000, 0.54, concept)
+payload = System("Payload", 14000, 0.50, concept)
 
 wing = System("Wing", estimates["Wing"], 0.55, concept)
 
@@ -41,8 +41,6 @@ env_systems = System("Env Systems", estimates["Env. Systems"], 0.3, concept)
 furnishings = System("Furnishings", estimates["Furnishings"], 0.2, concept)
 
 O2_system = System("O2 System", estimates["O2 System"], 0.24, concept)
-
-print(concept.systems)
 
 plot.CGPlot(concept)
 plot.CGExcursion(concept)

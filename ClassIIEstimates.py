@@ -62,7 +62,6 @@ W_w = W_w(K_w, Λ_LE, n_ult, t_o_c, λ, A, S, W_TO)
 weights.append(W_w)
 labels.append('Wing')
 
-
 '''
 Horizontal Tail Weight
 
@@ -85,7 +84,6 @@ def W_h(W_TO, n_ult, S_h, b_h, t_r_h, c_bar, l_h):
 W_h = W_h(W_TO, n_ult, S_h, b_h, t_r_h, c_bar, l_h)
 weights.append(W_h.value)
 labels.append('Horizontal Tail')
-
 
 '''
 Vertical Tail Weight
@@ -116,7 +114,6 @@ def W_v(W_TO, n_ult, S_v, M_H, l_v, S_r, A_v, λ_v, Λ_qtrchrd_v):
 W_v = W_v(W_TO, n_ult, S_v, M_H, l_v, S_r, A_v, λ_v, Λ_qtrchrd_v)
 weights.append(W_v.value)
 labels.append('Vertical Tail')
-
 
 '''
 Fuselage Weight
@@ -429,5 +426,3 @@ inputs = locals().copy()
 # with open("data.txt", "a") as datafile:
 #     for index, w in enumerate(weights):
 #         datafile.write(labels[index]+"\t"+str(w)+"\n")
-
-print(labels)
