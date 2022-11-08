@@ -6,7 +6,7 @@ concept = Aircraft()
 
 fuel = System("Fuel", 16000, 0.54, concept)
 
-payload = System("Payload", 14000, 0.50, concept)
+payload = System("Payload", 14000, 0.54, concept)
 
 wing = System("Wing", estimates["Wing"], 0.55, concept)
 

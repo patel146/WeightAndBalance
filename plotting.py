@@ -30,7 +30,6 @@ def CGPlot(aircraft):
 
 def CGExcursion(aircraft):
     initial_CG = aircraft.CG()
-    print(initial_CG)
     static_margin = 0.08
     fig, ax = plt.subplots()
     x = []
