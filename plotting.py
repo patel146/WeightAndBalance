@@ -1,13 +1,21 @@
 import matplotlib.pyplot as plt
 
+font = {'family': 'sans-serif',
+        # 'weight' : 'bold',
+        'size': 12}
+
+plt.rc('font', **font)
+
 
 # Create scatter plot of current aircraft systems
 def CGPlot(aircraft):
     x = []
     y = []
+    labels = []
     for name, system in aircraft.systems.items():
         x.append(system.loc)
-        y.append(system.loc)
+        y.append(system.weight)
+        plt.annotate(name, (x, y), (x, y))
     fig, ax = plt.subplots()
     ax.scatter(x, y)
     plt.axvline(x=aircraft.CG(), linestyle='--', color='b', label='CG')
