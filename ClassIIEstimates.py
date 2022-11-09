@@ -37,11 +37,11 @@ t_o_c = 0.09  # thickness to chord ratio
 
 λ = 0.4  # wing taper ratio
 
-A = 5.5  # aspect ratio (using A instead of AR becuase Roskam uses A)
+A = 5  # aspect ratio (using A instead of AR becuase Roskam uses A)
 
-S = 651.43 * ui.ft ** 2  # wing area
+S = 507 * ui.ft ** 2  # wing area
 
-W_TO = 59839 * ui.lbf  # MTOW for critical mission
+W_TO = 41722 * ui.lbf  # MTOW for critical mission
 
 # convert degrees to radians for easier calculations
 Λ_LE = Λ_LE.to(u.rad)
@@ -69,11 +69,11 @@ Horizontal Tail Weight
 (Section 5.2.2.1 GD Method)
 Using this method because according to Section 5.2.4 on pg.75, I should, lmao'''
 
-S_h = 157.58 * ui.ft ** 2
+S_h = 90 * ui.ft ** 2
 b_h = 30 * ui.ft
 t_r_h = 0.5 * ui.ft
 c_bar = 10.83 * ui.ft
-l_h = 19 * ui.ft
+l_h = 20.12 * ui.ft
 
 
 def W_h(W_TO, n_ult, S_h, b_h, t_r_h, c_bar, l_h):
@@ -94,8 +94,8 @@ Vertical Tail Weight
 z_h = 0  # As long as horizontal stablilizer is not mounted on vertical tail, equation is simplified
 M_H = 0.95  # Maximum mach number at sea level
 A_v = 5.5  # Aspect ratio of vertical tail
-S_v = 100 * ui.ft ** 2  # vertical tail area
-l_v = 14 * ui.ft  # vertical tail location
+S_v = 49.71 * ui.ft ** 2  # vertical tail area
+l_v = 16.2 * ui.ft  # vertical tail location
 S_r = 20 * ui.ft ** 2  # rudder area
 λ_v = 0.1  # vertical tail taper ratio
 Λ_qtrchrd_v = 10 * u.deg  # vertical tail quarter chord sweep angle
