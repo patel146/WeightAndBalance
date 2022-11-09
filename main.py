@@ -1,6 +1,7 @@
 from classes import Aircraft, System
 from ClassIIEstimates import estimates, l_f
 import plotting as plot
+import logger
 
 # TODO recursive fuel and wing location as close to CG as possible ******
 # TODO do CG as percentage of MAC
@@ -53,8 +54,11 @@ furnishings = System("Furnishings", estimates["Furnishings"], 0.2, concept)
 
 O2_system = System("O2 System", estimates["O2 System"], 0.24, concept)
 
-plot.CGPlot(concept)
-plot.CGExcursion(concept)
+# plot.CGPlot(concept)
+# plot.CGExcursion(concept)
+
+logger.log_inputs()
+logger.log_results(concept.CG())
 
 
     
