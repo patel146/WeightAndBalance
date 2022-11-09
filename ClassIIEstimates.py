@@ -8,6 +8,8 @@ Section 5.1.4.1 (For USAF Fighter and Attack AC)
 from astropy import units as u
 from astropy.units import imperial as ui
 import math
+from helpers import dyn_pres
+from CSV_Handler import *
 
 estimates = {}
 
@@ -26,24 +28,69 @@ kg_o_m3 = u.kg / u.m ** 3
 slug_o_ft3 = ui.slug / ui.ft ** 3
 knts = ui.nmi / u.hr
 
+# INPUTS ####
+
 # Kw  = 1 for fixed wing and 1.175 for variable sweep
-K_w = 1.0
+# K_w = 1.0
 
-Λ_LE = 35 * u.deg
+# Λ_LE = 35 * u.deg
 
-n_ult = 9
+# n_ult = 9
 
-t_o_c = 0.09  # thickness to chord ratio
-
-λ = 0.4  # wing taper ratio
-
-A = 5  # aspect ratio (using A instead of AR becuase Roskam uses A)
-
-S = 507 * ui.ft ** 2  # wing area
-
-W_TO = 41722 * ui.lbf  # MTOW for critical mission
+# t_o_c = 0.09  # thickness to chord ratio
+#
+# λ = 0.4  # wing taper ratio
+#
+# A = 5  # aspect ratio (using A instead of AR because Roskam uses A)
+#
+# S = 507 * ui.ft ** 2  # wing area
+#
+# W_TO = 41722 * ui.lbf  # MTOW for critical mission
+#
+# S_h = 90 * ui.ft ** 2
+# b_h = 30 * ui.ft
+# t_r_h = 0.5 * ui.ft
+# c_bar = 10.83 * ui.ft
+# l_h = 20.12 * ui.ft
+#
+# z_h = 0  # As long as horizontal stablilizer is not mounted on vertical tail, equation is simplified
+# M_H = 0.95  # Maximum mach number at sea level
+# A_v = 5.5  # Aspect ratio of vertical tail
+# S_v = 49.71 * ui.ft ** 2  # vertical tail area
+# l_v = 16.2 * ui.ft  # vertical tail location
+# S_r = 20 * ui.ft ** 2  # rudder area
+# λ_v = 0.1  # vertical tail taper ratio
+# Λ_qtrchrd_v = 10 * u.deg  # vertical tail quarter chord sweep angle
+#
+# K_inl = 1.25  # for aircraft with inlets integrated into the fuselage (pg.77)
+q_bar_D = dyn_pres(0.4135 * kg_o_m3, 400 * knts)  # design dive dynamic pressure in psf (pounds per sq.ft)
+# l_f = 54 * ui.ft  # length of fuselage (should be in ft)
+# h_f = 15 * ui.ft  # maximum fuselage height (should be in ft)
+#
+# N_inl = 2  # number of inlets
+# A_inl = 5 * ui.ft ** 2  # capture area per inlet in ft^2
+# l_n = 10 * ui.ft  # nacelle length from inlet to compressor face
+# P_2 = 30 * (ui.lbf / ui.inch ** 2)  # max static pressure at engine compressor face in psi (ranges from 15 to 50 psi)
+#
+# W_pwr = 8920  # total weight of engines
+#
+# W_F = 19843 * ui.lbf  # mission fuel weight including reserves
+# K_fsp = 6.55 * (ui.lbf / ui.gallon)  # just a constant defined in pg. 91, assuming we are using JP-4 jet fuel
+W_supp = 7.91 * ((W_F / K_fsp) / 100) ** 0.854
+#
+# N_pil = 1  # number of pilots
+# N_e = 2  # number of engines
+#
+# K_fcf = 138  # pg.100
+#
+# APU_est_factor = 0.013  # range between 0.004 to 0.013 from the equation
+#
+# W_pay = 14000 * ui.lbf
+#
+# PAINT_EST_FACTOR = 0.006  # ranges from 0.003 to 0.006, use conservative considering stealth paint might be used
 
 # convert degrees to radians for easier calculations
+Λ_qtrchrd_v = Λ_qtrchrd_v.to(u.rad)
 Λ_LE = Λ_LE.to(u.rad)
 
 
@@ -69,12 +116,6 @@ Horizontal Tail Weight
 (Section 5.2.2.1 GD Method)
 Using this method because according to Section 5.2.4 on pg.75, I should, lmao'''
 
-S_h = 90 * ui.ft ** 2
-b_h = 30 * ui.ft
-t_r_h = 0.5 * ui.ft
-c_bar = 10.83 * ui.ft
-l_h = 20.12 * ui.ft
-
 
 def W_h(W_TO, n_ult, S_h, b_h, t_r_h, c_bar, l_h):
     curl_brackets = (W_TO * n_ult) ** 0.813 * S_h ** 0.584 * (b_h / t_r_h) ** 0.033 * (c_bar / l_h) ** 0.28
@@ -90,17 +131,6 @@ Vertical Tail Weight
 
 -pg 73 Roskam
 (Section 5.2.2.1 GD Method)'''
-
-z_h = 0  # As long as horizontal stablilizer is not mounted on vertical tail, equation is simplified
-M_H = 0.95  # Maximum mach number at sea level
-A_v = 5.5  # Aspect ratio of vertical tail
-S_v = 49.71 * ui.ft ** 2  # vertical tail area
-l_v = 16.2 * ui.ft  # vertical tail location
-S_r = 20 * ui.ft ** 2  # rudder area
-λ_v = 0.1  # vertical tail taper ratio
-Λ_qtrchrd_v = 10 * u.deg  # vertical tail quarter chord sweep angle
-
-Λ_qtrchrd_v = Λ_qtrchrd_v.to(u.rad)
 
 
 def W_v(W_TO, n_ult, S_v, M_H, l_v, S_r, A_v, λ_v, Λ_qtrchrd_v):
@@ -122,20 +152,6 @@ Fuselage Weight
 (Section 5.3.2.1 GD Method)
 Equation 5.26'''
 
-K_inl = 1.25  # for aircraft with inlets integrated into the fuselage (pg.77)
-
-
-def dyn_pres(dens, speed):
-    dens = dens.to(slug_o_ft3)
-    speed = speed.to(ui.ft / u.s)
-    q = 0.5 * dens * speed ** 2
-    return q.to(ui.lbf / ui.ft ** 2)
-
-
-q_bar_D = dyn_pres(0.4135 * kg_o_m3, 400 * knts)  # design dive dynamic pressure in psf (pounds per sq.ft)
-l_f = 54 * ui.ft  # length of fuselage (should be in ft)
-h_f = 15 * ui.ft  # maximum fuselage height (should be in ft)
-
 
 def W_f(K_inl, q_bar_D, W_TO, l_f, h_f):
     return 10.43 * K_inl ** 1.42 * (q_bar_D / 100) ** 0.283 * (W_TO / 1000) ** 0.95 * (l_f / h_f) ** 0.71
@@ -151,11 +167,6 @@ Engine Nacelle Weight
 -pg.80 Roskam
 (Section 5.4.2.1) 
 Section 5.4.4 said to use eqs. 5.34 or 5.35 for attack aircraft'''
-
-N_inl = 2  # number of inlets
-A_inl = 5 * ui.ft ** 2  # capture area per inlet in ft^2
-l_n = 10 * ui.ft  # nacelle length from inlet to compressor face
-P_2 = 30 * (ui.lbf / ui.inch ** 2)  # max static pressure at engine compressor face in psi (ranges from 15 to 50 psi)
 
 
 def W_n(N_inl, A_inl, l_n, P_2):
@@ -191,7 +202,6 @@ Power Plant Weight
 For now, will just assume value for 2 F404-GE-402 engines (used in F-18)
 assuming each engine weighs 2282 lbf'''
 
-W_pwr = 8920
 weights.append(W_pwr)
 labels.append('Powerplant')
 
@@ -201,10 +211,6 @@ Fuel Systems Weight
 -pg.92 Roskam
 (Section 6.4.2.1)
 assuming self-sealing bladder tanks'''
-
-W_F = 19843 * ui.lbf  # mission fuel weight including reserves
-K_fsp = 6.55 * (ui.lbf / ui.gallon)  # just a constant defined in pg. 91, assuming we are using JP-4 jet fuel
-W_supp = 7.91 * ((W_F / K_fsp) / 100) ** 0.854
 
 
 def W_fs(W_F, K_fsp, W_supp):
@@ -223,8 +229,6 @@ Flight Control System Weight
 -pg.100
 (Section 7.1.4.1)
 '''
-
-K_fcf = 138  # pg.100
 
 
 def W_fc(W_TO, K_fcf):
@@ -250,9 +254,6 @@ Instrumentation, Avionics and Electronics System Weight Estimation
 -pg.103
 (Section 7.4.2.1 USAF Attack Aircraft)
 In book, W_i is used but really it refers to W_iae'''
-
-N_pil = 1  # number of pilots
-N_e = 2  # number of engines
 
 
 def W_iae(N_pil, W_TO, N_e):
@@ -325,8 +326,6 @@ Auxiliary Power Unit Weight (APU)
 -pg.107
 Eq.7.40'''
 
-APU_est_factor = 0.013  # range between 0.004 to 0.013 from the equation
-
 W_apu = APU_est_factor * W_TO
 
 weights.append(W_apu.value)
@@ -359,8 +358,6 @@ Payload Weight
 -pg.111
 just use payload weight for now'''
 
-W_pay = 14000 * ui.lbf
-
 weights.append(W_pay.value)
 labels.append('Payload')
 
@@ -387,8 +384,6 @@ Paint Weight
 
 -pg.112
 (Eq.7.51)'''
-
-PAINT_EST_FACTOR = 0.006  # ranges from 0.003 to 0.006, beging conservative considering stealth paint might be used
 
 
 def W_pt(W_TO):
