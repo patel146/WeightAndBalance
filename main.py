@@ -57,9 +57,13 @@ O2_system = System("O2 System", estimates["O2 System"], 0.24, concept)
 # plot.CGPlot(concept)
 # plot.CGExcursion(concept)
 
-logger.log_inputs()
-logger.log_results(concept.CG())
+# logger.log_inputs()
+# logger.log_results(concept.CG())
+# logger.log_weights(concept)
 
+results = {"CG": [concept.CG(), '-'],
+           "Test": [5, 'lbf']}
 
+logger.create_log_file(results, concept)
     
     
