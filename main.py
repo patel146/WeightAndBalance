@@ -25,6 +25,9 @@ concept = Aircraft()
 fuel = System("Fuel", 17392, wing_pos, concept)
 
 payload = System("Payload", 7000, wing_pos, concept)
+
+pilot = System("Pilot", 250, 0.15, concept)
+
 gun = System("Gun", 1084, ((11.2 / 2) / l_f.value), concept)
 
 wing = System("Wing", estimates["Wing"], wing_pos, concept)
@@ -55,11 +58,11 @@ paint = System("Paint", estimates["Paint"], 0.4, concept)
 
 man_var = System("Man. Var.", estimates["Manu. Variation"], 0.5, concept)
 
-env_systems = System("Env Systems", estimates["Env. Systems"], 0.3, concept)
+env_systems = System("Env Systems", estimates["Env. Systems"], 0.3, concept) #70.4 lbf
 
 furnishings = System("Furnishings", estimates["Furnishings"], 0.2, concept)
 
-O2_system = System("O2 System", estimates["O2 System"], 0.24, concept)
+O2_system = System("O2 System", estimates["O2 System"], 0.24, concept) #29.5 lbf
 
 
 # plot.CGPlot(concept)
@@ -75,9 +78,6 @@ def solve_wing_pos():
     fuel.loc += diff
     payload.loc += diff
     diff = concept.CG() - wing.loc
-    print("CG:", concept.CG())
-    print("Wing Pos:", wing.loc)
-    print("Diff", diff)
     if diff > 0.001:
         solve_wing_pos()
 
