@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+
 from classes import Aircraft, System
 from ClassIIEstimates import estimates, l_f
 import plotting as plot
@@ -10,6 +12,12 @@ import logger
 # TODO find CG wing distance to CG of aircraft
 # TODO find lv and lh
 
+# TODO find t_r_h (maximum root thickness)
+# TODO find AR of VT
+# TODO find rudder area
+# TODO find VT taper ratio
+# TODO find max fuselage height
+
 wing_pos = 0.4
 
 concept = Aircraft()
@@ -17,7 +25,7 @@ concept = Aircraft()
 fuel = System("Fuel", 17392, wing_pos, concept)
 
 payload = System("Payload", 7000, wing_pos, concept)
-gun = System("Gun", 1084, ((11.2/2)/l_f.value), concept)
+gun = System("Gun", 1084, ((11.2 / 2) / l_f.value), concept)
 
 wing = System("Wing", estimates["Wing"], wing_pos, concept)
 
@@ -32,7 +40,6 @@ nacelle = System("Nacelle", estimates["Nacelle"], 0.5, concept)
 FCS = System("FCS", estimates["FCS"], 0.46, concept)
 
 VT = System("VT", estimates["Vertical Tail"], 0.85, concept)
-print(estimates["Vertical Tail"])
 
 HT = System("HT", estimates["Horizontal Tail"], 0.95, concept)
 
@@ -54,6 +61,7 @@ furnishings = System("Furnishings", estimates["Furnishings"], 0.2, concept)
 
 O2_system = System("O2 System", estimates["O2 System"], 0.24, concept)
 
+
 # plot.CGPlot(concept)
 # plot.CGExcursion(concept)
 
@@ -61,9 +69,23 @@ O2_system = System("O2 System", estimates["O2 System"], 0.24, concept)
 # logger.log_results(concept.CG())
 # logger.log_weights(concept)
 
-results = {"CG": [concept.CG(), '-'],
-           "Test": [5, 'lbf']}
+def solve_wing_pos():
+    diff = concept.CG() - wing.loc
+    wing.loc += diff
+    fuel.loc += diff
+    payload.loc += diff
+    diff = concept.CG() - wing.loc
+    print("CG:", concept.CG())
+    print("Wing Pos:", wing.loc)
+    print("Diff", diff)
+    if diff > 0.01:
+        solve_wing_pos()
+
+
+solve_wing_pos()
+
+results = {"CG": [concept.CG(), '% l_f'],
+           "CG w/out HT": [concept.CG_no_HT(), '% l_f'],
+           "Optimal Wing Pos": [wing.loc, '%_f']}
 
 logger.create_log_file(results, concept)
-    
-    
