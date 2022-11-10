@@ -85,7 +85,10 @@ def solve_wing_pos():
 solve_wing_pos()
 
 results = {"CG": [concept.CG(), '% l_f'],
-           "CG w/out HT": [concept.CG_no_HT(), '% l_f'],
-           "Optimal Wing Pos": [wing.loc, '%_f']}
+           "Optimal Wing Pos": [wing.loc, '%_f'],
+           "Wing Weight": [wing.weight, 'lbf'],
+           "CG VT": [VT.loc, '% l_f'],
+           "CG HT": [HT.loc, '% l_f'],
+           "CG w/out HT": [concept.CG_no_HT(), '% l_f']}
 
 logger.create_log_file(results, concept)

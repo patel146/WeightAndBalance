@@ -52,6 +52,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\Logs\2022-11-0919-37-27.931107.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
       </map>
     </option>
   </component>
