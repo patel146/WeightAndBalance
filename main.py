@@ -64,6 +64,7 @@ furnishings = System("Furnishings", estimates["Furnishings"], 0.2, concept)
 
 O2_system = System("O2 System", estimates["O2 System"], 0.24, concept) #29.5 lbf
 
+# armour = System('Pilot Armour', 1000, 0.15, concept)
 
 # plot.CGPlot(concept)
 # plot.CGExcursion(concept)
