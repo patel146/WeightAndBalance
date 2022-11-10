@@ -78,7 +78,7 @@ def solve_wing_pos():
     print("CG:", concept.CG())
     print("Wing Pos:", wing.loc)
     print("Diff", diff)
-    if diff > 0.01:
+    if diff > 0.001:
         solve_wing_pos()
 
 
