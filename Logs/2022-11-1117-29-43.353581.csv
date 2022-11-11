@@ -1,0 +1,71 @@
+Variable,Value,units
+K_w,1.0,-
+Λ_LE,35.0,u.deg
+n_ult,9.0,-
+t_o_c,0.0957,-
+λ,0.4,-
+A,5.0,-
+S,432.71,ui.ft ** 2
+W_TO,35608.0,ui.lbf
+S_h,90.0,ui.ft ** 2
+b_h,30.0,ui.ft
+t_r_h,0.5,ui.ft
+c_bar,10.687,ui.ft
+l_h,20.12,ui.ft
+z_h,0.0,-
+M_H,0.95,-
+A_v,5.0,-
+S_v,44.71,ui.ft ** 2
+l_v,16.12,ui.ft
+S_r,20.0,ui.ft ** 2
+λ_v,0.1,-
+Λ_qtrchrd_v,10.0,u.deg
+K_inl,1.25,-
+l_f,53.0,ui.ft
+h_f,7.0,ui.ft
+N_inl,2.0,-
+A_inl,3.1,ui.ft ** 2
+l_n,10.0,ui.ft
+P_2,30.0,(ui.lbf / ui.inch ** 2)
+W_pwr,3829.0,-
+W_F,17392.0,ui.lbf
+K_fsp,6.55,(ui.lbf / ui.gallon)
+N_pil,1.0,-
+N_e,1.0,-
+K_fcf,138.0,-
+APU_est_factor,0.013,-
+W_pay,14000.0,ui.lbf
+PAINT_EST_FACTOR,0.006,-
+,,
+System	Weight [lbf]	Location [% lf]
+fuel_wing_and_drop_tank	9000	0.48814979732109554
+fuel_fuselage	6400	0.52
+Payload Wing	1600	0.48814979732109554
+Payload Internal Bay	3000	0.318
+Gun	1084	0.10566037735849056
+Pilot	250	0.15
+Canopy	500	0.1
+Wing	3451	0.48814979732109554
+Powerplant	3200	0.85
+Fuselage	2129.3807166607044	0.45
+Landing Gear	1250.7202159922242	0.4
+Nacelle	1454.3847256405743	0.5
+FCS	1099.8367601195373	0.38
+VT	329.6663522968256	0.85
+HT	451.61911122625935	0.975
+APU	462.904	0.3
+Avionics	453.990304	0.15
+Fuel Systems	738.2806580832096	0.6
+Elec. Systems	465.9730849625538	0.5
+Paint	213.648	0.4
+Man. Var.	42.160000000000004	0.5
+Env Systems	147.84147335350352	0.3
+Furnishings	94.3405656484957	0.2
+O2 System	16.9	0.24
+Result	Value	Units
+CG	0.4874627068780556	% l_f
+Optimal Wing Pos	0.48814979732109554	%_f
+Wing Weight	3451	lbf
+CG VT	0.85	% l_f
+CG HT	0.975	% l_f
+CG w/out HT	0.48157315222150765	% l_f

@@ -59,6 +59,27 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\Logs\2022-11-1117-26-57.810980.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\Logs\2022-11-1117-28-23.419910.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\Logs\2022-11-1117-29-43.353581.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
       </map>
     </option>
   </component>

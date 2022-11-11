@@ -18,33 +18,35 @@ import logger
 # TODO find VT taper ratio
 # TODO find max fuselage height
 
-wing_pos = 0.4
+wing_pos = 0.49
 
 concept = Aircraft()
 
-fuel = System("Fuel", 17392, wing_pos, concept)
+fuel_wing_and_drop_tank = System("fuel_wing_and_drop_tank", 9000, 0.49, concept)
+fuel_fuselage = System("fuel_fuselage", 6400, 0.52, concept)
 
-payload = System("Payload", 7000, wing_pos, concept)
-
-pilot = System("Pilot", 250, 0.15, concept)
-
+payload_wing = System("Payload Wing", 1600, 0.49, concept)
+payload_internal_bay = System("Payload Internal Bay", 3000, 0.318, concept)
 gun = System("Gun", 1084, ((11.2 / 2) / l_f.value), concept)
 
-wing = System("Wing", estimates["Wing"], wing_pos, concept)
+pilot = System("Pilot", 250, 0.15, concept)
+canopy = System("Canopy", 500, 0.1, concept)
 
-powerplant = System("Powerplant", 4150, 0.85, concept)
+wing = System("Wing", 3451, wing_pos, concept)
+
+powerplant = System("Powerplant", 3200, 0.85, concept)
 
 fuselage = System("Fuselage", estimates["Fuselage"], 0.45, concept)
 
-landing_gear = System("Landing Gear", estimates["Landing Gear"], 0.45, concept)
+landing_gear = System("Landing Gear", estimates["Landing Gear"], 0.4, concept)
 
 nacelle = System("Nacelle", estimates["Nacelle"], 0.5, concept)
 
-FCS = System("FCS", estimates["FCS"], 0.46, concept)
+FCS = System("FCS", estimates["FCS"], 0.38, concept)
 
 VT = System("VT", estimates["Vertical Tail"], 0.85, concept)
 
-HT = System("HT", estimates["Horizontal Tail"], 0.95, concept)
+HT = System("HT", estimates["Horizontal Tail"], 0.975, concept)
 
 APU = System("APU", estimates["APU"], 0.3, concept)
 
@@ -66,7 +68,7 @@ O2_system = System("O2 System", estimates["O2 System"], 0.24, concept) #29.5 lbf
 
 # armour = System('Pilot Armour', 1000, 0.15, concept)
 
-# plot.CGPlot(concept)
+plot.CGPlot(concept)
 # plot.CGExcursion(concept)
 
 # logger.log_inputs()
@@ -76,8 +78,8 @@ O2_system = System("O2 System", estimates["O2 System"], 0.24, concept) #29.5 lbf
 def solve_wing_pos():
     diff = concept.CG() - wing.loc
     wing.loc += diff
-    fuel.loc += diff
-    payload.loc += diff
+    payload_wing.loc += diff
+    fuel_wing_and_drop_tank.loc += diff
     diff = concept.CG() - wing.loc
     if diff > 0.001:
         solve_wing_pos()
