@@ -51,3 +51,6 @@ K_fcf = inputs.loc["K_fcf"].values[0] * units[inputs.loc["K_fcf"].values[1]]
 APU_est_factor = inputs.loc["APU_est_factor"].values[0] * units[inputs.loc["APU_est_factor"].values[1]]
 W_pay = inputs.loc["W_pay"].values[0] * units[inputs.loc["W_pay"].values[1]]
 PAINT_EST_FACTOR = inputs.loc["PAINT_EST_FACTOR"].values[0] * units[inputs.loc["PAINT_EST_FACTOR"].values[1]]
+
+all_missions = pd.read_csv("MISSIONS.csv")
+print(all_missions.iloc[4])
