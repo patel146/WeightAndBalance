@@ -1,6 +1,3 @@
-from ClassIIEstimates import l_f
-
-
 class Aircraft:
     systems = {}
 
@@ -29,8 +26,8 @@ class Aircraft:
 
 
 class System:
-    def __init__(self, name, weight, loc, aircraft):
+    def __init__(self, name, weight, loc, system_group):
         self.name = name
         self.weight = weight
         self.loc = loc
-        aircraft.systems[self.name] = self
+        system_group[self.name] = self

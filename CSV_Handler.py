@@ -1,6 +1,7 @@
 import pandas as pd
 from astropy import units as u
 from astropy.units import imperial as ui
+from classes import System
 
 inputs = pd.read_csv("INPUTS.csv")
 inputs = inputs.set_index("Variable")
@@ -53,4 +54,18 @@ W_pay = inputs.loc["W_pay"].values[0] * units[inputs.loc["W_pay"].values[1]]
 PAINT_EST_FACTOR = inputs.loc["PAINT_EST_FACTOR"].values[0] * units[inputs.loc["PAINT_EST_FACTOR"].values[1]]
 
 all_missions = pd.read_csv("MISSIONS.csv")
-print(all_missions.iloc[4])
+CAS_data = all_missions.loc[:, ['SYSTEM', 'CAS', 'CAS loc']]
+CAS_data.columns = CAS_data.iloc[0]
+CAS_data = CAS_data.drop(CAS_data.index[0])
+CAS_data = CAS_data.set_index('system')
+
+CAS_SYSTEMS = {}
+for data in CAS_data.iterrows():
+    name = data[0]
+    info = data[1]
+    weight = info[0]
+    loc = info[1]
+    print(f"{name} weighs {weight} at {loc}")
+    System(name, float(weight), float(loc), CAS_SYSTEMS)
+
+

@@ -80,6 +80,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\Logs\2022-11-1214-10-50.200716.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\MISSIONS.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
       </map>
     </option>
   </component>
