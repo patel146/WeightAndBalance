@@ -94,7 +94,7 @@ for concept in aircraft_missions:
                "CG HT": [concept.systems['HT'].loc, '% l_f'],
                "CG w/out HT": [concept.CG_no_HT(), '% l_f']}
 
-    # logger.create_log_file(results, concept)
+    logger.create_log_file(results, concept)
 
 
 # logger.log_inputs()
