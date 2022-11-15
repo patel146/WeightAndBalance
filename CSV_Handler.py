@@ -65,7 +65,7 @@ for data in CAS_data.iterrows():
     info = data[1]
     weight = info[0]
     loc = info[1]
-    print(f"{name} weighs {weight} at {loc}")
+    # print(f"{name} weighs {weight} at {loc}")
     System(name, float(weight), float(loc), CAS_SYSTEMS)
 
 

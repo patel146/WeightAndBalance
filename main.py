@@ -71,10 +71,8 @@ concept.systems = CAS_SYSTEMS
 
 # armour = System('Pilot Armour', 1000, 0.15, concept)
 
-plot.CGPlot(concept)
-
-
-# plot.CGExcursion(concept)
+# plot.CGPlot(concept)
+plot.CGExcursion(concept)
 
 # logger.log_inputs()
 # logger.log_results(concept.CG())
@@ -100,4 +98,4 @@ results = {"CG": [concept.CG(), '% l_f'],
            "CG HT": [concept.systems['HT'].loc, '% l_f'],
            "CG w/out HT": [concept.CG_no_HT(), '% l_f']}
 
-logger.create_log_file(results, concept)
+# logger.create_log_file(results, concept)

@@ -35,31 +35,71 @@ def CG_MAC(l_f, wing_pos, CG):
     return (CG - LEMAC) / MAC
 
 
+def interpolate(x1, x2):
+    return (x1 + x2) / 2
+
+
 def CGExcursion(aircraft):
     l_f = 54
-    wing_pos = 0.546
+    wing_pos = 0.52
     initial_CG = CG_MAC(l_f, wing_pos, aircraft.CG())
     static_margin = 0.08
     fig, ax = plt.subplots()
     x = []
     y = []
-    fuel = range(aircraft.systems["Fuel"].weight)
-    # Fuel burn
-    for i in fuel:
-        aircraft.systems["Fuel"].weight -= 1
+
+    def burn(name):
+        while aircraft.systems[name].weight > 1:
+            aircraft.systems[name].weight -= 1
+            x.append(CG_MAC(l_f, wing_pos, aircraft.CG()))
+            y.append(aircraft.W_total())
+
+        ax.plot(x, y, color='k')
+        ys = len(y)
+        off_x = 0.01
+        ax.annotate(name, xy=(x[-int(ys / 2)], y[-int(ys / 2)]), xycoords='data',
+                    xytext=(x[-int(ys / 2)] + off_x, y[-int(ys / 2)]), textcoords='data',
+                    arrowprops=dict(facecolor='black', shrink=0.005, headwidth=2, width=0.1, headlength=4),
+                    horizontalalignment='left', verticalalignment='top', )
+        del x[:-1]
+        del y[:-1]
+
+    def drop(name):
+        aircraft.systems[name].weight = 0
         x.append(CG_MAC(l_f, wing_pos, aircraft.CG()))
         y.append(aircraft.W_total())
+        ax.plot(x, y, color="k", label=name)
+        ys = len(y)
+        off_x = -0.04
+        up_y = 1000
+        ax.annotate(name, xy=(x[-int(ys / 2)], y[-int(ys / 2)] + up_y), xycoords='data',
+                    xytext=(x[-int(ys / 2)] + off_x, y[-int(ys / 2)] + up_y), textcoords='data',
+                    arrowprops=dict(facecolor='black', shrink=0.005, headwidth=2, width=0.1, headlength=4),
+                    horizontalalignment='left', verticalalignment='top', )
+        del x[:-1]
+        del y[:-1]
 
-    ax.plot(x, y, label="Fuel Burn")
+    def shoot_cannons(ammo_weight):
+        aircraft.systems["Gun"].weight -= ammo_weight
+        x.append(CG_MAC(l_f, wing_pos, aircraft.CG()))
+        y.append(aircraft.W_total())
+        ax.plot(x, y, color="k", label="Shoot Cannons")
+        ys = len(y)
+        off_x = 0.097
+        up_y = 21340
+        arrow_x = interpolate(x[0], x[-1])
+        arrow_y = interpolate(y[0], y[-1])
+        ax.annotate("Shoot Ammo", xy=(arrow_x, arrow_y), xycoords='data',
+                    xytext=(off_x, up_y), textcoords='data',
+                    arrowprops=dict(facecolor='black', shrink=0.005, headwidth=2, width=0.1, headlength=4),
+                    horizontalalignment='left', verticalalignment='top', )
+        del x[:-1]
+        del y[:-1]
 
-    del x[:-1]
-    del y[:-1]
-    # Payload Drop
-    aircraft.systems["Payload"].weight = 0
-    x.append(CG_MAC(l_f, wing_pos, aircraft.CG()))
-    y.append(aircraft.W_total())
-
-    ax.plot(x, y, color="r", label="Payload Drop")
+    burn("Fuel wing + drop tank")
+    burn("Fuel fuselage")
+    drop("Payload wing")
+    shoot_cannons(500)
 
     # Static Margin
     ax.axvline(x=initial_CG + static_margin, linestyle='--', color='b', label='Static Margin')
@@ -68,6 +108,6 @@ def CGExcursion(aircraft):
     plt.xlabel(r"CG [% MAC]")
     plt.xlim([initial_CG * 0.8, initial_CG + static_margin * 1.4])
     plt.ylabel(r"$W_T$ [lbf]")
-    plt.legend()
+    # plt.legend()
     plt.tight_layout()
     plt.show()
