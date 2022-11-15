@@ -85,20 +85,22 @@ def CGExcursion(aircraft):
         y.append(aircraft.W_total())
         ax.plot(x, y, color="k", label="Shoot Cannons")
         ys = len(y)
-        off_x = 0.097
-        up_y = 21340
+        off_x = 0.01
+        up_y = 1000
         arrow_x = interpolate(x[0], x[-1])
         arrow_y = interpolate(y[0], y[-1])
         ax.annotate("Shoot Ammo", xy=(arrow_x, arrow_y), xycoords='data',
-                    xytext=(off_x, up_y), textcoords='data',
+                    xytext=(arrow_x+off_x, arrow_y+up_y), textcoords='data',
                     arrowprops=dict(facecolor='black', shrink=0.005, headwidth=2, width=0.1, headlength=4),
                     horizontalalignment='left', verticalalignment='top', )
         del x[:-1]
         del y[:-1]
 
     burn("Fuel wing + drop tank")
-    burn("Fuel fuselage")
-    drop("Payload wing")
+    if aircraft.systems["Fuel fuselage"].weight != 0:
+        burn("Fuel fuselage")
+    if aircraft.systems["Payload wing"].weight != 0:
+        drop("Payload wing")
     shoot_cannons(500)
 
     # Static Margin
@@ -109,5 +111,6 @@ def CGExcursion(aircraft):
     plt.xlim([initial_CG * 0.8, initial_CG + static_margin * 1.4])
     plt.ylabel(r"$W_T$ [lbf]")
     # plt.legend()
+    plt.title(aircraft.mission)
     plt.tight_layout()
     plt.show()

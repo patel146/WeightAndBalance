@@ -4,7 +4,7 @@ from classes import Aircraft, System
 from ClassIIEstimates import estimates, l_f
 import plotting as plot
 import logger
-from CSV_Handler import CAS_SYSTEMS
+from CSV_Handler import CAS_SYSTEMS, STEALTH_SYSTEMS, MAX_PAYLOAD_SYSTEMS
 
 # TODO recursive fuel and wing location as close to CG as possible ******
 # TODO do CG as percentage of MAC
@@ -23,7 +23,8 @@ wing_pos = 0.49
 
 concept = Aircraft()
 
-concept.systems = CAS_SYSTEMS
+concept.systems = MAX_PAYLOAD_SYSTEMS
+concept.mission = "MAX PAYLOAD"
 
 # fuel_wing_and_drop_tank = System("fuel_wing_and_drop_tank", 9000, 0.49, concept)
 # fuel_fuselage = System("fuel_fuselage", 6400, 0.52, concept)
@@ -73,6 +74,7 @@ concept.systems = CAS_SYSTEMS
 
 # plot.CGPlot(concept)
 plot.CGExcursion(concept)
+
 
 # logger.log_inputs()
 # logger.log_results(concept.CG())

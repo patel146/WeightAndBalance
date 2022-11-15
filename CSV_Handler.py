@@ -54,10 +54,21 @@ W_pay = inputs.loc["W_pay"].values[0] * units[inputs.loc["W_pay"].values[1]]
 PAINT_EST_FACTOR = inputs.loc["PAINT_EST_FACTOR"].values[0] * units[inputs.loc["PAINT_EST_FACTOR"].values[1]]
 
 all_missions = pd.read_csv("MISSIONS.csv")
+# Extract CAS info
 CAS_data = all_missions.loc[:, ['SYSTEM', 'CAS', 'CAS loc']]
 CAS_data.columns = CAS_data.iloc[0]
 CAS_data = CAS_data.drop(CAS_data.index[0])
 CAS_data = CAS_data.set_index('system')
+
+STEALTH_data = all_missions.loc[:, ['SYSTEM', 'STEALTH', 'STEALTH loc']]
+STEALTH_data.columns = STEALTH_data.iloc[0]
+STEALTH_data = STEALTH_data.drop(STEALTH_data.index[0])
+STEALTH_data = STEALTH_data.set_index('system')
+
+MAX_PAYLOAD_data = all_missions.loc[:, ['SYSTEM', 'MAX PAYLOAD', 'MAX PAYLOAD loc']]
+MAX_PAYLOAD_data.columns = MAX_PAYLOAD_data.iloc[0]
+MAX_PAYLOAD_data = MAX_PAYLOAD_data.drop(MAX_PAYLOAD_data.index[0])
+MAX_PAYLOAD_data = MAX_PAYLOAD_data.set_index('system')
 
 CAS_SYSTEMS = {}
 for data in CAS_data.iterrows():
@@ -68,4 +79,21 @@ for data in CAS_data.iterrows():
     # print(f"{name} weighs {weight} at {loc}")
     System(name, float(weight), float(loc), CAS_SYSTEMS)
 
+STEALTH_SYSTEMS = {}
+for data in STEALTH_data.iterrows():
+    name = data[0]
+    info = data[1]
+    weight = info[0]
+    loc = info[1]
+    # print(f"{name} weighs {weight} at {loc}")
+    System(name, float(weight), float(loc), STEALTH_SYSTEMS)
+
+MAX_PAYLOAD_SYSTEMS = {}
+for data in MAX_PAYLOAD_data.iterrows():
+    name = data[0]
+    info = data[1]
+    weight = info[0]
+    loc = info[1]
+    # print(f"{name} weighs {weight} at {loc}")
+    System(name, float(weight), float(loc), MAX_PAYLOAD_SYSTEMS)
 

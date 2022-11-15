@@ -1,4 +1,5 @@
 class Aircraft:
+    mission = None
     systems = {}
 
     def CG(self):
