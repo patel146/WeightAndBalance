@@ -25,6 +25,19 @@ class Aircraft:
             total_weight += system.weight
         return total_weight
 
+    def W_no_HT(self):
+        total_weight = 0
+        for name, system in self.systems.items():
+            if name != 'HT':
+                total_weight += system.weight
+        return total_weight
+
+    def W_f(self):
+        return self.systems["Fuel wing + drop tank"].weight + self.systems["Fuel fuselage"].weight
+
+    def FDGW(self):
+        return self.W_total() - self.W_f()
+
 
 class System:
     def __init__(self, name, weight, loc, system_group):

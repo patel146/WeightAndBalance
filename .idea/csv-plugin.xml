@@ -94,6 +94,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\Logs\CAS2022-11-1421-39-16.727791.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\Logs\CAS2022-11-1421-41-37.230392.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\MISSIONS.csv">
           <value>
             <Attribute>
