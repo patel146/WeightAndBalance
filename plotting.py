@@ -96,20 +96,27 @@ def CGExcursion(aircraft):
                     horizontalalignment='left', verticalalignment='top', )
         del x[:-1]
         del y[:-1]
-
-    burn("Fuel wing + drop tank")
     if aircraft.systems["Fuel fuselage"].weight != 0:
         burn("Fuel fuselage")
+    burn("Fuel wing + drop tank")
+
     if aircraft.systems["Payload wing"].weight != 0:
         drop("Payload wing")
-    shoot_cannons(500)
+    shoot_cannons(700)
 
     # Static Margin
     ax.axvline(x=initial_CG + static_margin, linestyle='--', color='b', label='Static Margin')
-    ax.axvspan(0, initial_CG + static_margin, alpha=0.2, label="Stable Region")
+    
+    # In flight forward limit
+    ax.axvline(x=initial_CG, linestyle='--', color='b', label='Static Margin')
+    
+    # Forward CG limit
+    ax.axvline(x=CG_MAC(l_f, wing_pos, 0.475), linestyle='--', color='k', label='Forward Limit')
+ 
+    # Aft CG limit
+    ax.axvline(x=CG_MAC(l_f, wing_pos, 0.52), linestyle='--', color='k', label='Aft Limit')
 
     plt.xlabel(r"CG [% MAC]")
-    plt.xlim([initial_CG * 0.8, initial_CG + static_margin * 1.4])
     plt.ylabel(r"$W_T$ [lbf]")
     # plt.legend()
     plt.title(aircraft.mission)
