@@ -25,6 +25,7 @@ def CGPlot(aircraft):
     ax.scatter(x, y)
     plt.axvline(x=aircraft.CG(), linestyle='--', color='b', label='CG')
     plt.legend()
+    plt.title(aircraft.mission)
     plt.show()
 
 

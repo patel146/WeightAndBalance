@@ -21,10 +21,22 @@ from CSV_Handler import CAS_SYSTEMS, STEALTH_SYSTEMS, MAX_PAYLOAD_SYSTEMS
 
 wing_pos = 0.49
 
-concept = Aircraft()
+concept_max_payload = Aircraft()
 
-concept.systems = MAX_PAYLOAD_SYSTEMS
-concept.mission = "MAX PAYLOAD"
+concept_max_payload.systems = MAX_PAYLOAD_SYSTEMS
+concept_max_payload.mission = "MAX PAYLOAD"
+
+concept_CAS = Aircraft()
+
+concept_CAS.systems = CAS_SYSTEMS
+concept_CAS.mission = "CAS"
+
+concept_stealth = Aircraft()
+
+concept_stealth.systems = STEALTH_SYSTEMS
+concept_stealth.mission = "STEALTH"
+
+aircraft_missions = [concept_stealth, concept_CAS, concept_max_payload]
 
 # fuel_wing_and_drop_tank = System("fuel_wing_and_drop_tank", 9000, 0.49, concept)
 # fuel_fuselage = System("fuel_fuselage", 6400, 0.52, concept)
@@ -72,8 +84,17 @@ concept.mission = "MAX PAYLOAD"
 
 # armour = System('Pilot Armour', 1000, 0.15, concept)
 
-# plot.CGPlot(concept)
-plot.CGExcursion(concept)
+for concept in aircraft_missions:
+    plot.CGPlot(concept)
+    plot.CGExcursion(concept)
+    results = {"CG": [concept.CG(), '% l_f'],
+               "Optimal Wing Pos": [concept.systems['Wing'].loc, '%_f'],
+               "Wing Weight": [concept.systems['Wing'].weight, 'lbf'],
+               "CG VT": [concept.systems['VT'].loc, '% l_f'],
+               "CG HT": [concept.systems['HT'].loc, '% l_f'],
+               "CG w/out HT": [concept.CG_no_HT(), '% l_f']}
+
+    # logger.create_log_file(results, concept)
 
 
 # logger.log_inputs()
@@ -91,13 +112,6 @@ def solve_wing_pos(aircraft):
         solve_wing_pos(aircraft)
 
 
-solve_wing_pos(concept)
+# solve_wing_pos(concept)
 
-results = {"CG": [concept.CG(), '% l_f'],
-           "Optimal Wing Pos": [concept.systems['Wing'].loc, '%_f'],
-           "Wing Weight": [concept.systems['Wing'].weight, 'lbf'],
-           "CG VT": [concept.systems['VT'].loc, '% l_f'],
-           "CG HT": [concept.systems['HT'].loc, '% l_f'],
-           "CG w/out HT": [concept.CG_no_HT(), '% l_f']}
 
-# logger.create_log_file(results, concept)
