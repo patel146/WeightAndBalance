@@ -19,6 +19,8 @@ from CSV_Handler import CAS_SYSTEMS, STEALTH_SYSTEMS, MAX_PAYLOAD_SYSTEMS
 # TODO find VT taper ratio
 # TODO find max fuselage height
 
+# TODO get ac empty weight
+
 wing_pos = 0.49
 
 concept_max_payload = Aircraft()
@@ -38,64 +40,86 @@ concept_stealth.mission = "STEALTH"
 
 aircraft_missions = [concept_stealth, concept_CAS, concept_max_payload]
 
-# fuel_wing_and_drop_tank = System("fuel_wing_and_drop_tank", 9000, 0.49, concept)
-# fuel_fuselage = System("fuel_fuselage", 6400, 0.52, concept)
-#
-# payload_wing = System("Payload Wing", 1600, 0.49, concept)
-# payload_internal_bay = System("Payload Internal Bay", 3000, 0.318, concept)
-# gun = System("Gun", 1084, ((11.2 / 2) / l_f.value), concept)
-#
-# pilot = System("Pilot", 250, 0.15, concept)
-# canopy = System("Canopy", 500, 0.1, concept)
-#
-# wing = System("Wing", 3451, wing_pos, concept)
-#
-# powerplant = System("Powerplant", 3200, 0.85, concept)
-#
-# fuselage = System("Fuselage", estimates["Fuselage"], 0.45, concept)
-#
-# landing_gear = System("Landing Gear", estimates["Landing Gear"], 0.4, concept)
-#
-# nacelle = System("Nacelle", estimates["Nacelle"], 0.5, concept)
-#
-# FCS = System("FCS", estimates["FCS"], 0.38, concept)
-#
-# VT = System("VT", estimates["Vertical Tail"], 0.85, concept)
-#
-# HT = System("HT", estimates["Horizontal Tail"], 0.975, concept)
-#
-# APU = System("APU", estimates["APU"], 0.3, concept)
-#
-# avionics = System("Avionics", estimates["Avionics"], 0.15, concept)
-#
-# fuel_systems = System("Fuel Systems", estimates["Fuel Systems"], 0.6, concept)
-#
-# elec_systems = System("Elec. Systems", estimates["Elec. Systems"], 0.5, concept)
-#
-# paint = System("Paint", estimates["Paint"], 0.4, concept)
-#
-# man_var = System("Man. Var.", estimates["Manu. Variation"], 0.5, concept)
-#
-# env_systems = System("Env Systems", estimates["Env. Systems"], 0.3, concept)  # 70.4 lbf
-#
-# furnishings = System("Furnishings", estimates["Furnishings"], 0.2, concept)
-#
-# O2_system = System("O2 System", estimates["O2 System"], 0.24, concept)  # 29.5 lbf
+
+system_estimates = {}
+concept_weight_estimates = Aircraft()
+
+concept_weight_estimates.systems = system_estimates
+concept_weight_estimates.mission = "ESTIMATES"
+
+
+fuel_wing_and_drop_tank = System("Fuel wing + drop tank", 6400, 0.52, system_estimates)
+fuel_fuselage = System("Fuel fuselage", 9000, 0.49, system_estimates)
+
+payload_wing = System("Payload wing", 1600, 0.535, system_estimates)
+payload_internal_bay = System("Payload Internal Bay", 3000, 0.318, system_estimates)
+gun = System("Gun", 1084, ((11.2 / 2) / l_f.value), system_estimates)
+
+pilot = System("Pilot", 250, 0.15, system_estimates)
+# canopy = System("Canopy", 500, 0.1, system_estimates)
+
+wing = System("Wing", 3451, wing_pos, system_estimates)
+
+powerplant = System("Powerplant", 3200, 0.85, system_estimates)
+
+fuselage = System("Fuselage", estimates["Fuselage"], 0.45, system_estimates)
+
+landing_gear = System("Landing Gear", estimates["Landing Gear"], 0.4, system_estimates)
+
+nacelle = System("Nacelle", estimates["Nacelle"], 0.5, system_estimates)
+
+FCS = System("FCS", estimates["FCS"], 0.38, system_estimates)
+
+VT = System("VT", estimates["Vertical Tail"], 0.85, system_estimates)
+
+HT = System("HT", estimates["Horizontal Tail"], 0.975, system_estimates)
+
+APU = System("APU", estimates["APU"], 0.3, system_estimates)
+
+avionics = System("Avionics", estimates["Avionics"], 0.15, system_estimates)
+
+fuel_systems = System("Fuel Systems", estimates["Fuel Systems"], 0.6, system_estimates)
+
+elec_systems = System("Elec. Systems", estimates["Elec. Systems"], 0.5, system_estimates)
+
+paint = System("Paint", estimates["Paint"], 0.4, system_estimates)
+
+man_var = System("Man. Var.", estimates["Manu. Variation"], 0.5, system_estimates)
+
+env_systems = System("Env Systems", estimates["Env. Systems"], 0.3, system_estimates)  # 70.4 lbf
+
+furnishings = System("Furnishings", estimates["Furnishings"], 0.2, system_estimates)
+
+O2_system = System("O2 System", estimates["O2 System"], 0.24, system_estimates)  # 29.5 lbf
 
 # armour = System('Pilot Armour', 1000, 0.15, concept)
 
-for concept in aircraft_missions:
-    plot.CGPlot(concept)
-    plot.CGExcursion(concept)
-    results = {"CG": [concept.CG(), '% l_f'],
-               "Optimal Wing Pos": [concept.systems['Wing'].loc, '%_f'],
-               "Wing Weight": [concept.systems['Wing'].weight, 'lbf'],
-               "CG VT": [concept.systems['VT'].loc, '% l_f'],
-               "CG HT": [concept.systems['HT'].loc, '% l_f'],
-               "CG w/out HT": [concept.CG_no_HT(), '% l_f']}
+def all_missons():
+    for concept in aircraft_missions:
+        plot.CGPlot(concept)
+        plot.CGExcursion(concept)
+        results = {"CG": [concept.CG(), '% l_f'],
+                "Optimal Wing Pos": [concept.systems['Wing'].loc, '%_f'],
+                "Wing Weight": [concept.systems['Wing'].weight, 'lbf'],
+                "CG VT": [concept.systems['VT'].loc, '% l_f'],
+                "CG HT": [concept.systems['HT'].loc, '% l_f'],
+                "CG w/out HT": [concept.CG_no_HT(), '% l_f']}
 
-    # logger.create_log_file(results, concept)
+        # logger.create_log_file(results, concept)
 
+def calculate_estimates():
+    # plot.CGPlot(concept_weight_estimates)
+    # plot.CGExcursion(concept_weight_estimates)
+    results = {"CG": [concept_weight_estimates.CG(), '% l_f'],
+        "Optimal Wing Pos": [concept_weight_estimates.systems['Wing'].loc, '%_f'],
+        "Wing Weight": [concept_weight_estimates.systems['Wing'].weight, 'lbf'],
+        "Empty Weight": [concept_weight_estimates.W_e(), 'lbf'],
+        "CG VT": [concept_weight_estimates.systems['VT'].loc, '% l_f'],
+        "CG HT": [concept_weight_estimates.systems['HT'].loc, '% l_f'],
+        "CG w/out HT": [concept_weight_estimates.CG_no_HT(), '% l_f'],
+        }
+    logger.create_log_file(results, concept_weight_estimates)
+    
 
 # logger.log_inputs()
 # logger.log_results(concept.CG())
@@ -103,15 +127,16 @@ for concept in aircraft_missions:
 
 def solve_wing_pos(aircraft):
     # print(aircraft.systems['Wing'].loc)
-    diff = concept.CG() - aircraft.systems['Wing'].loc
+    diff = aircraft.CG() - aircraft.systems['Wing'].loc
     aircraft.systems['Wing'].loc += diff
     aircraft.systems['Payload wing'].loc += diff
     aircraft.systems['Fuel wing + drop tank'].loc += diff
-    diff = concept.CG() - aircraft.systems['Wing'].loc
+    diff = aircraft.CG() - aircraft.systems['Wing'].loc
     if diff > 0.001:
         solve_wing_pos(aircraft)
 
 
 # solve_wing_pos(concept)
+calculate_estimates()
 
 
