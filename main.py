@@ -108,7 +108,7 @@ def all_missons():
                "FDGW": [concept.FDGW(), 'lbf'],
                "W_T": [concept.W_total(), 'lbf']}
 
-        # logger.create_log_file(results, concept)
+        logger.create_log_file(results, concept)
 
 def calculate_estimates():
     # plot.CGPlot(concept_weight_estimates)
@@ -120,6 +120,9 @@ def calculate_estimates():
         "CG VT": [concept_weight_estimates.systems['VT'].loc, '% l_f'],
         "CG HT": [concept_weight_estimates.systems['HT'].loc, '% l_f'],
         "CG w/out HT": [concept_weight_estimates.CG_no_HT(), '% l_f'],
+        "Weight w/out HT": [concept_weight_estimates.W_no_HT(), 'lbf'],
+        "FDGW": [concept_weight_estimates.FDGW(), 'lbf'],
+        "W_T": [concept_weight_estimates.W_total(), 'lbf']
         }
     logger.create_log_file(results, concept_weight_estimates)
     
