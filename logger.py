@@ -27,7 +27,7 @@ def create_log_file(results, aircraft):
     now = str(datetime.now())
     now = now.replace(' ', '')
     now = now.replace(':', '-')
-    file_name = "Logs\\" + now + '.csv'
+    file_name = "Logs\\" + aircraft.mission + now + '.csv'
     input_df = inputs.loc[:, ["Value", "units"]]
     input_df.to_csv(file_name)
     with open(file_name, 'a', newline='') as log_file:

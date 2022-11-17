@@ -96,14 +96,17 @@ O2_system = System("O2 System", estimates["O2 System"], 0.24, system_estimates) 
 
 def all_missons():
     for concept in aircraft_missions:
-        plot.CGPlot(concept)
-        plot.CGExcursion(concept)
+        # plot.CGPlot(concept)
+        # plot.CGExcursion(concept)
         results = {"CG": [concept.CG(), '% l_f'],
                 "Optimal Wing Pos": [concept.systems['Wing'].loc, '%_f'],
                 "Wing Weight": [concept.systems['Wing'].weight, 'lbf'],
                 "CG VT": [concept.systems['VT'].loc, '% l_f'],
                 "CG HT": [concept.systems['HT'].loc, '% l_f'],
-                "CG w/out HT": [concept.CG_no_HT(), '% l_f']}
+                "CG w/out HT": [concept.CG_no_HT(), '% l_f'],
+               "Weight w/out HT": [concept.W_no_HT(), 'lbf'],
+               "FDGW": [concept.FDGW(), 'lbf'],
+               "W_T": [concept.W_total(), 'lbf']}
 
         # logger.create_log_file(results, concept)
 
