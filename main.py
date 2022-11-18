@@ -40,13 +40,11 @@ concept_stealth.mission = "STEALTH"
 
 aircraft_missions = [concept_stealth, concept_CAS, concept_max_payload]
 
-
 system_estimates = {}
 concept_weight_estimates = Aircraft()
 
 concept_weight_estimates.systems = system_estimates
 concept_weight_estimates.mission = "ESTIMATES"
-
 
 fuel_wing_and_drop_tank = System("Fuel wing + drop tank", 6400, 0.52, system_estimates)
 fuel_fuselage = System("Fuel fuselage", 9000, 0.49, system_estimates)
@@ -92,6 +90,7 @@ furnishings = System("Furnishings", estimates["Furnishings"], 0.2, system_estima
 
 O2_system = System("O2 System", estimates["O2 System"], 0.24, system_estimates)  # 29.5 lbf
 
+
 # armour = System('Pilot Armour', 1000, 0.15, concept)
 
 def all_missons():
@@ -99,33 +98,34 @@ def all_missons():
         # plot.CGPlot(concept)
         # plot.CGExcursion(concept)
         results = {"CG": [concept.CG(), '% l_f'],
-                "Optimal Wing Pos": [concept.systems['Wing'].loc, '%_f'],
-                "Wing Weight": [concept.systems['Wing'].weight, 'lbf'],
-                "CG VT": [concept.systems['VT'].loc, '% l_f'],
-                "CG HT": [concept.systems['HT'].loc, '% l_f'],
-                "CG w/out HT": [concept.CG_no_HT(), '% l_f'],
-               "Weight w/out HT": [concept.W_no_HT(), 'lbf'],
-               "FDGW": [concept.FDGW(), 'lbf'],
-               "W_T": [concept.W_total(), 'lbf']}
+                   "Optimal Wing Pos": [concept.systems['Wing'].loc, '%_f'],
+                   "Wing Weight": [concept.systems['Wing'].weight, 'lbf'],
+                   "CG VT": [concept.systems['VT'].loc, '% l_f'],
+                   "CG HT": [concept.systems['HT'].loc, '% l_f'],
+                   "CG w/out HT": [concept.CG_no_HT(), '% l_f'],
+                   "Weight w/out HT": [concept.W_no_HT(), 'lbf'],
+                   "FDGW": [concept.FDGW(), 'lbf'],
+                   "W_T": [concept.W_total(), 'lbf']}
 
         logger.create_log_file(results, concept)
+
 
 def calculate_estimates():
     # plot.CGPlot(concept_weight_estimates)
     # plot.CGExcursion(concept_weight_estimates)
     results = {"CG": [concept_weight_estimates.CG(), '% l_f'],
-        "Optimal Wing Pos": [concept_weight_estimates.systems['Wing'].loc, '%_f'],
-        "Wing Weight": [concept_weight_estimates.systems['Wing'].weight, 'lbf'],
-        "Empty Weight": [concept_weight_estimates.W_e(), 'lbf'],
-        "CG VT": [concept_weight_estimates.systems['VT'].loc, '% l_f'],
-        "CG HT": [concept_weight_estimates.systems['HT'].loc, '% l_f'],
-        "CG w/out HT": [concept_weight_estimates.CG_no_HT(), '% l_f'],
-        "Weight w/out HT": [concept_weight_estimates.W_no_HT(), 'lbf'],
-        "FDGW": [concept_weight_estimates.FDGW(), 'lbf'],
-        "W_T": [concept_weight_estimates.W_total(), 'lbf']
-        }
+               "Optimal Wing Pos": [concept_weight_estimates.systems['Wing'].loc, '%_f'],
+               "Wing Weight": [concept_weight_estimates.systems['Wing'].weight, 'lbf'],
+               "Empty Weight": [concept_weight_estimates.W_e(), 'lbf'],
+               "CG VT": [concept_weight_estimates.systems['VT'].loc, '% l_f'],
+               "CG HT": [concept_weight_estimates.systems['HT'].loc, '% l_f'],
+               "CG w/out HT": [concept_weight_estimates.CG_no_HT(), '% l_f'],
+               "Weight w/out HT": [concept_weight_estimates.W_no_HT(), 'lbf'],
+               "FDGW": [concept_weight_estimates.FDGW(), 'lbf'],
+               "W_T": [concept_weight_estimates.W_total(), 'lbf']
+               }
     logger.create_log_file(results, concept_weight_estimates)
-    
+
 
 # logger.log_inputs()
 # logger.log_results(concept.CG())
@@ -144,5 +144,3 @@ def solve_wing_pos(aircraft):
 
 # solve_wing_pos(concept)
 calculate_estimates()
-
-
