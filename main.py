@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import tkinter as tk
 
 from classes import Aircraft, System
 from ClassIIEstimates import estimates, l_f
@@ -143,4 +144,16 @@ def solve_wing_pos(aircraft):
 
 
 # solve_wing_pos(concept)
-calculate_estimates()
+# calculate_estimates()
+
+window = tk.Tk()
+label = tk.Label(window, text='Test')
+label.place(x=0, y=0)
+
+button = tk.Button(window, text='calculate', command=calculate_estimates)
+button.grid(row=0, column=1)
+
+in1 = tk.Entry(window)
+in1.grid(row=1, column=1)
+
+window.mainloop()
