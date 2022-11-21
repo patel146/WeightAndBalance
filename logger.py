@@ -31,7 +31,7 @@ def create_log_file(results, aircraft):
     input_df = inputs.loc[:, ["Value", "units"]]
     input_df.to_csv(file_name)
     with open(file_name, 'a', newline='') as log_file:
-        writer = csv.writer(log_file, dialect='excel-tab')
+        writer = csv.writer(log_file, dialect='excel')
         writer.writerow(["System", "Weight [lbf]", "Location [% lf]"])
         for name, system in aircraft.systems.items():
             writer.writerow([system.name, system.weight, system.loc])
