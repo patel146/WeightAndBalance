@@ -114,7 +114,7 @@ Horizontal Tail Weight
 
 - pg.73 Roskam 
 (Section 5.2.2.1 GD Method)
-Using this method because according to Section 5.2.4 on pg.75, I should, lmao'''
+Using this method because according to Section 5.2.2 on pg.75, I should, lmao'''
 
 
 def W_h(W_TO, n_ult, S_h, b_h, t_r_h, c_bar, l_h):
