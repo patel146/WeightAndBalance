@@ -46,6 +46,10 @@ class Aircraft:
     def FDGW(self):
         return self.W_total() - self.W_f()
 
+    def display_systems(self):
+        for name, system in self.systems.items():
+            print(name, system.weight, system.loc)
+
 
 class System:
     def __init__(self, name, weight, loc, system_group):

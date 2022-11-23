@@ -1,12 +1,12 @@
 Variable,Value,units,desc
 K_w,1.0,-,-
-Λ_LE,24.213,u.deg,-
+Λ_LE,25,u.deg,-
 n_ult,9,-,-
 t_o_c,0.094,-,thickness to chord ratio
 λ,0.4,-,wing taper ratio
 A,5.5,-,aspect ratio (using A instead of AR because Roskam uses A)
-S,475.98,ui.ft ** 2,wing area
-W_TO,36597,ui.lbf,MTOW for critical mission
+S,438.76,ui.ft ** 2,wing area
+W_TO,34790,ui.lbf,MTOW for critical mission
 S_h,155,ui.ft ** 2,-
 b_h,24.9,ui.ft,-
 t_r_h,0.5,ui.ft,max root thickness of horizontal tail
@@ -21,7 +21,7 @@ S_r,20,ui.ft ** 2,rudder area
 λ_v,0.4,-,vertical tail taper ratio
 Λ_qtrchrd_v,10,u.deg,vertical tail quarter chord sweep angle
 K_inl,1.25,-,for aircraft with inlets integrated into the fuselage (pg.77)
-l_f,52,ui.ft,length of fuselage (should be in ft)
+l_f,49.5,ui.ft,length of fuselage (should be in ft)
 h_f,7,ui.ft,maximum fuselage height (should be in ft)
 N_inl,2,-,number of inlets
 A_inl,6.2,ui.ft ** 2,capture area per inlet in ft^2

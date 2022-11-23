@@ -50,8 +50,8 @@ concept_weight_estimates.mission = "ESTIMATES"
 fuel_wing_and_drop_tank = System("Fuel wing + drop tank", 6400, 0.52, system_estimates)
 fuel_fuselage = System("Fuel fuselage", 9000, 0.49, system_estimates)
 
-payload_wing = System("Payload wing", 1600, 0.535, system_estimates)
-payload_internal_bay = System("Payload Internal Bay", 3000, 0.318, system_estimates)
+payload_wing = System("Payload wing", 4600, 0.535, system_estimates)
+# payload_internal_bay = System("Payload Internal Bay", 3000, 0.318, system_estimates)
 gun = System("Gun", 1084, ((11.2 / 2) / l_f.value), system_estimates)
 
 pilot = System("Pilot", 250, 0.15, system_estimates)
@@ -113,7 +113,7 @@ def all_missons():
 
 def calculate_estimates():
     # plot.CGPlot(concept_weight_estimates)
-    # plot.CGExcursion(concept_weight_estimates)
+    plot.CGExcursion(concept_weight_estimates)
     results = {"CG": [concept_weight_estimates.CG(), '% l_f'],
                "Optimal Wing Pos": [concept_weight_estimates.systems['Wing'].loc, '%_f'],
                "Wing Weight": [concept_weight_estimates.systems['Wing'].weight, 'lbf'],
@@ -125,7 +125,7 @@ def calculate_estimates():
                "FDGW": [concept_weight_estimates.FDGW(), 'lbf'],
                "W_T": [concept_weight_estimates.W_total(), 'lbf']
                }
-    logger.create_log_file(results, concept_weight_estimates)
+    # logger.create_log_file(results, concept_weight_estimates)
 
 
 # logger.log_inputs()
@@ -143,17 +143,23 @@ def solve_wing_pos(aircraft):
         solve_wing_pos(aircraft)
 
 
+# plot.MTOW_Track()
+
+concept_weight_estimates.display_systems()
+plot.CG_EXC_2(concept_weight_estimates)
+
+
 # solve_wing_pos(concept)
 # calculate_estimates()
 
-window = tk.Tk()
-label = tk.Label(window, text='Test')
-label.place(x=0, y=0)
-
-button = tk.Button(window, text='calculate', command=calculate_estimates)
-button.grid(row=0, column=1)
-
-in1 = tk.Entry(window)
-in1.grid(row=1, column=1)
-
-window.mainloop()
+# window = tk.Tk()
+# label = tk.Label(window, text='Test')
+# label.place(x=0, y=0)
+#
+# button = tk.Button(window, text='calculate', command=calculate_estimates)
+# button.grid(row=0, column=1)
+#
+# in1 = tk.Entry(window)
+# in1.grid(row=1, column=1)
+#
+# window.mainloop()

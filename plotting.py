@@ -41,10 +41,10 @@ def interpolate(x1, x2):
 
 
 def CGExcursion(aircraft):
-    l_f = 54
-    wing_pos = 0.52
+    l_f = 49.5
+    wing_pos = 0.49
     initial_CG = CG_MAC(l_f, wing_pos, aircraft.CG())
-    static_margin = 0.08
+    static_margin = 0.0625
     fig, ax = plt.subplots()
     x = []
     y = []
@@ -91,11 +91,12 @@ def CGExcursion(aircraft):
         arrow_x = interpolate(x[0], x[-1])
         arrow_y = interpolate(y[0], y[-1])
         ax.annotate("Shoot Ammo", xy=(arrow_x, arrow_y), xycoords='data',
-                    xytext=(arrow_x+off_x, arrow_y+up_y), textcoords='data',
+                    xytext=(arrow_x + off_x, arrow_y + up_y), textcoords='data',
                     arrowprops=dict(facecolor='black', shrink=0.005, headwidth=2, width=0.1, headlength=4),
                     horizontalalignment='left', verticalalignment='top', )
         del x[:-1]
         del y[:-1]
+
     if aircraft.systems["Fuel fuselage"].weight != 0:
         burn("Fuel fuselage")
     burn("Fuel wing + drop tank")
@@ -106,13 +107,13 @@ def CGExcursion(aircraft):
 
     # Static Margin
     ax.axvline(x=initial_CG + static_margin, linestyle='--', color='b', label='Static Margin')
-    
+
     # In flight forward limit
     ax.axvline(x=initial_CG, linestyle='--', color='b', label='Static Margin')
-    
+
     # Forward CG limit
     ax.axvline(x=CG_MAC(l_f, wing_pos, 0.475), linestyle='--', color='k', label='Forward Limit')
- 
+
     # Aft CG limit
     ax.axvline(x=CG_MAC(l_f, wing_pos, 0.52), linestyle='--', color='k', label='Aft Limit')
 
@@ -120,5 +121,134 @@ def CGExcursion(aircraft):
     plt.ylabel(r"$W_T$ [lbf]")
     # plt.legend()
     plt.title(aircraft.mission)
+    plt.tight_layout()
+    plt.show()
+
+
+# CG Excursion 2, full mission laid out
+# This function specifically made with CAS 3 mission in mind using data from performance
+# https://onedrive.live.com/edit.aspx?resid=951C12727E23B89A!843&cid=951c12727e23b89a&CT=1669160633240&OR=ItemsView
+
+def CG_EXC_2(aircraft):
+    static_margin = 0.0625
+    l_f = 49.5
+    wing_pos = 0.49
+
+    fig, ax = plt.subplots()
+    xs = []
+    ys = []
+
+    # helper function to quickly plot and annotate points
+    def point(CG, W, xoff, yoff, name):
+        xs.append(CG_MAC(l_f, wing_pos, CG))
+        ys.append(W)
+        plt.scatter(CG_MAC(l_f, wing_pos, CG), W, color='k')
+        plt.annotate(name, xy=(CG_MAC(l_f, wing_pos, CG), W), xycoords='data',
+                     xytext=(CG_MAC(l_f, wing_pos, CG) + xoff, W + yoff), textcoords='data',
+                     arrowprops=dict(arrowstyle="->",
+                                     connectionstyle="arc3")
+                     )
+
+    # helper function to get point given fuel fraction and fuel tank to be used (only for cruise, climb) NOT payload
+    def after(name, fuel_tank, fuel_fraction, plot=False):
+        ff = fuel_fraction
+        if fuel_tank == 'Fuel fuselage':
+            aircraft.systems[fuel_tank].weight = fuel_fraction * aircraft.systems[fuel_tank].weight - (ff - 1) * \
+                                                 aircraft.systems['Fuel wing + drop tank'].weight
+        elif fuel_tank == 'Fuel wing + drop tank':
+            aircraft.systems[fuel_tank].weight = fuel_fraction * aircraft.systems[fuel_tank].weight + (ff - 1) * \
+                                                 aircraft.systems['Fuel fuselage'].weight
+        if plot:
+            point(aircraft.CG(), aircraft.W_total(), 0, 100, 'After ' + name)
+
+    # plot the starting point (MTOW and whatever the CG is at that point)
+    point(aircraft.CG(), aircraft.W_total(), 0, 100, 'Takeoff')
+
+    before_attack_tank = 'Fuel wing + drop tank'
+    # plot aircraft after climb and cruising
+    after("climb and cruise", before_attack_tank, 0.994 * 0.944)
+
+    # plot aircraft after loiter
+    after("loiter", before_attack_tank, 0.944)
+
+    # plot aircraft after descent
+    after("descent", before_attack_tank, 0.999, plot=True)
+
+    # plot aircraft after attack, assume aircraft drops all payload
+    attack_ff = 0.995 * 0.998 * 0.996
+
+    # fuel burned during attack
+    aircraft.systems['Fuel fuselage'].weight *= attack_ff
+    # all payload dropped during attack
+    aircraft.systems['Payload wing'].weight = 0
+
+    point(aircraft.CG(), aircraft.W_total(), 0, 100, "After attack")
+
+    # after climb following attack
+    after('climb 2', 'Fuel fuselage', 0.995)
+
+    # after cruise 2
+    after('cruise 2', 'Fuel fuselage', 0.941)
+
+    # after descent 2
+    after('descent 2', 'Fuel fuselage', 0.999)
+
+    # after reserve
+    after('reserve ', 'Fuel fuselage', 0.983)
+
+    # after descent
+    after('final descent ', 'Fuel fuselage', 0.999)
+
+    # after landing
+    after('landing ', 'Fuel fuselage', 0.995, plot=True)
+
+    # after taxi
+    after('taxi ', 'Fuel fuselage', 0.995)
+
+    # deplane (pilot leaves)
+    aircraft.systems['Pilot'].weight = 0
+    point(aircraft.CG(), aircraft.W_total(), 0, 100, "Deplane")
+
+    # rearm
+    aircraft.systems['Payload wing'].weight = 4600
+    point(aircraft.CG(), aircraft.W_total(), 0, 100, "Re-arm")
+
+    # refuel
+    aircraft.systems['Fuel fuselage'].weight = 9000
+    aircraft.systems['Fuel wing + drop tank'].weight = 6400
+    point(aircraft.CG(), aircraft.W_total(), 0, 100, "Refuel")
+
+    # pilot boards
+    aircraft.systems['Pilot'].weight = 250
+    point(aircraft.CG(), aircraft.W_total(), 0, 100, "")
+
+    plt.plot(xs, ys)
+
+    # CG Limits
+    # Static Margin
+
+    ax.axvline(x=CG_MAC(l_f, wing_pos, aircraft.CG()) + static_margin, linestyle='-.', color='b', label='Static Margin')
+    # In flight forward limit
+    ax.axvline(x=CG_MAC(l_f, wing_pos, 0.44), linestyle='--', color='b', label='In flight forward limit')
+    # Forward CG limit
+    ax.axvline(x=CG_MAC(l_f, wing_pos, 0.475), linestyle='--', color='k', label='Ground Forward Limit')
+    # # Aft CG limit
+    ax.axvline(x=CG_MAC(l_f, wing_pos, 0.52), linestyle='-.', color='k', label='Ground Aft Limit')
+    # show the plot
+    plt.xlabel('CG [% MAC]')
+    plt.ylabel('W$_{TOTAL}$ [lb$_f$]')
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
+
+
+# MTOW tracking plot
+def MTOW_Track():
+    names = [str(i) for i in range(1, 8)]
+    MTOWS = [54291, 40870, 41722, 35608, 35608, 37500, 34790]
+    fig, ax = plt.subplots()
+    plt.bar(names, MTOWS)
+    plt.xlabel('Iteration')
+    plt.ylabel('MTOW [lb$_f$]')
     plt.tight_layout()
     plt.show()
