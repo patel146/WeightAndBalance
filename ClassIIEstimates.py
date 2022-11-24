@@ -166,12 +166,13 @@ Engine Nacelle Weight
 
 -pg.80 Roskam
 (Section 5.4.2.1) 
-Section 5.4.4 said to use eqs. 5.34 or 5.35 for attack aircraft'''
+Section 5.4.4 said to use eqs. 5.34 or 5.35 for attack aircraft
+Use 5.34 since we have a turbojet'''
 
 
 def W_n(N_inl, A_inl, l_n, P_2):
     curly = A_inl ** 0.5 * l_n * P_2
-    W_n = 7.435 * N_inl * curly ** 0.731
+    W_n = 3.0 * N_inl * curly ** 0.731
     return W_n.value
 
 

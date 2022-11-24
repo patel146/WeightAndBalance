@@ -21,13 +21,13 @@ S_r,20,ui.ft ** 2,rudder area
 λ_v,0.4,-,vertical tail taper ratio
 Λ_qtrchrd_v,10,u.deg,vertical tail quarter chord sweep angle
 K_inl,1.25,-,for aircraft with inlets integrated into the fuselage (pg.77)
-l_f,49.5,ui.ft,length of fuselage (should be in ft)
+l_f,49,ui.ft,length of fuselage (should be in ft)
 h_f,7,ui.ft,maximum fuselage height (should be in ft)
 N_inl,2,-,number of inlets
 A_inl,6.2,ui.ft ** 2,capture area per inlet in ft^2
 l_n,10,ui.ft,nacelle length from inlet to compressor face
 P_2,30,(ui.lbf / ui.inch ** 2),max static pressure at engine compressor face in psi (ranges from 15 to 50 psi)
-W_pwr,3579,-,total weight of engines
+W_pwr,3750,-,total weight of engines
 W_F,17392,ui.lbf,mission fuel weight including reserves
 K_fsp,6.55,(ui.lbf / ui.gallon),just a constant defined in pg. 91 assuming we are using JP-4 jet fuel
 N_pil,1,-,number of pilots

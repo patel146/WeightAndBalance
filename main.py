@@ -47,19 +47,19 @@ concept_weight_estimates = Aircraft()
 concept_weight_estimates.systems = system_estimates
 concept_weight_estimates.mission = "ESTIMATES"
 
-fuel_wing_and_drop_tank = System("Fuel wing + drop tank", 6400, 0.52, system_estimates)
-fuel_fuselage = System("Fuel fuselage", 9000, 0.49, system_estimates)
+fuel_wing_and_drop_tank = System("Fuel wing + drop tank", 5000, 0.52, system_estimates)
+fuel_fuselage = System("Fuel fuselage", 4500, 0.49, system_estimates)
 
-payload_wing = System("Payload wing", 4600, 0.535, system_estimates)
+payload_wing = System("Payload wing", 10646, 0.535, system_estimates)
 # payload_internal_bay = System("Payload Internal Bay", 3000, 0.318, system_estimates)
-gun = System("Gun", 1084, ((11.2 / 2) / l_f.value), system_estimates)
+gun = System("Gun", 1854, ((11.2 / 2) / l_f.value), system_estimates)
 
 pilot = System("Pilot", 250, 0.15, system_estimates)
 # canopy = System("Canopy", 500, 0.1, system_estimates)
 
-wing = System("Wing", 3451, wing_pos, system_estimates)
+wing = System("Wing", estimates["Wing"], wing_pos, system_estimates)
 
-powerplant = System("Powerplant", 3200, 0.85, system_estimates)
+powerplant = System("Powerplant", estimates['Powerplant'], 0.85, system_estimates)
 
 fuselage = System("Fuselage", estimates["Fuselage"], 0.45, system_estimates)
 
@@ -113,7 +113,7 @@ def all_missons():
 
 def calculate_estimates():
     # plot.CGPlot(concept_weight_estimates)
-    plot.CGExcursion(concept_weight_estimates)
+    # plot.CGExcursion(concept_weight_estimates)
     results = {"CG": [concept_weight_estimates.CG(), '% l_f'],
                "Optimal Wing Pos": [concept_weight_estimates.systems['Wing'].loc, '%_f'],
                "Wing Weight": [concept_weight_estimates.systems['Wing'].weight, 'lbf'],
@@ -125,7 +125,7 @@ def calculate_estimates():
                "FDGW": [concept_weight_estimates.FDGW(), 'lbf'],
                "W_T": [concept_weight_estimates.W_total(), 'lbf']
                }
-    # logger.create_log_file(results, concept_weight_estimates)
+    logger.create_log_file(results, concept_weight_estimates)
 
 
 # logger.log_inputs()
