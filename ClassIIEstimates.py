@@ -290,8 +290,8 @@ labels.append('Elec. Systems')
 '''
 Air Conditioning, Pressurization, Anti/Deicing Systems Weights (W_api)
 
--pg.104
-(Section 7.5.4.1)'''
+-pg.105
+(Section 7.5.4.1) eq.7.34 since we are high subsonic'''
 
 N_cr = 1  # number of crew (Should refer to pilots plus anybody else on board)
 
