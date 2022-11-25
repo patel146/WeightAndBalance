@@ -47,10 +47,10 @@ concept_weight_estimates = Aircraft()
 concept_weight_estimates.systems = system_estimates
 concept_weight_estimates.mission = "ESTIMATES"
 
-fuel_wing_and_drop_tank = System("Fuel wing + drop tank", 5000, 0.52, system_estimates)
+fuel_wing_and_drop_tank = System("Fuel wing + drop tank", 5000, wing_pos, system_estimates)
 fuel_fuselage = System("Fuel fuselage", 4500, 0.49, system_estimates)
 
-payload_wing = System("Payload wing", 10646, 0.535, system_estimates)
+payload_wing = System("Payload wing", 10646, wing_pos, system_estimates)
 # payload_internal_bay = System("Payload Internal Bay", 3000, 0.318, system_estimates)
 gun = System("Gun", 1854, ((11.2 / 2) / l_f.value), system_estimates)
 

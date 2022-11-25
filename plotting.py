@@ -153,7 +153,7 @@ def CG_EXC_2(aircraft):
     def after(name, fuel_tank, fuel_fraction, plot=False):
         ff = fuel_fraction
         if fuel_tank == 'Fuel fuselage':
-            aircraft.systems[fuel_tank].weight = fuel_fraction * aircraft.systems[fuel_tank].weight - (ff - 1) * \
+            aircraft.systems[fuel_tank].weight = fuel_fraction * aircraft.systems[fuel_tank].weight + (ff - 1) * \
                                                  aircraft.systems['Fuel wing + drop tank'].weight
         elif fuel_tank == 'Fuel wing + drop tank':
             aircraft.systems[fuel_tank].weight = fuel_fraction * aircraft.systems[fuel_tank].weight + (ff - 1) * \
@@ -164,7 +164,9 @@ def CG_EXC_2(aircraft):
     # plot the starting point (MTOW and whatever the CG is at that point)
     point(aircraft.CG(), aircraft.W_total(), 0, 100, 'Takeoff')
 
-    before_attack_tank = 'Fuel wing + drop tank'
+    print(aircraft.W_total())
+
+    before_attack_tank = 'Fuel fuselage'
     # plot aircraft after climb and cruising
     after("climb and cruise", before_attack_tank, 0.994 * 0.944)
 
@@ -174,6 +176,8 @@ def CG_EXC_2(aircraft):
     # plot aircraft after descent
     after("descent", before_attack_tank, 0.999, plot=True)
 
+    print(aircraft.W_total())
+
     # plot aircraft after attack, assume aircraft drops all payload
     attack_ff = 0.995 * 0.998 * 0.996
 
@@ -181,6 +185,8 @@ def CG_EXC_2(aircraft):
     aircraft.systems['Fuel fuselage'].weight *= attack_ff
     # all payload dropped during attack
     aircraft.systems['Payload wing'].weight = 0
+
+    # aircraft.systems['Gun'].weight -= 600
 
     point(aircraft.CG(), aircraft.W_total(), 0, 100, "After attack")
 
@@ -210,12 +216,13 @@ def CG_EXC_2(aircraft):
     point(aircraft.CG(), aircraft.W_total(), 0, 100, "Deplane")
 
     # rearm
-    aircraft.systems['Payload wing'].weight = 4600
+    aircraft.systems['Payload wing'].weight = 10646
+    aircraft.systems['Gun'].weight = 1854
     point(aircraft.CG(), aircraft.W_total(), 0, 100, "Re-arm")
 
     # refuel
-    aircraft.systems['Fuel fuselage'].weight = 9000
-    aircraft.systems['Fuel wing + drop tank'].weight = 6400
+    aircraft.systems['Fuel fuselage'].weight = 4500
+    aircraft.systems['Fuel wing + drop tank'].weight = 5000
     point(aircraft.CG(), aircraft.W_total(), 0, 100, "Refuel")
 
     # pilot boards
