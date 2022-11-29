@@ -24,6 +24,8 @@ def CGPlot(aircraft):
     print("CG: ", aircraft.CG())
     ax.scatter(x, y)
     plt.axvline(x=aircraft.CG(), linestyle='--', color='b', label='CG')
+    plt.xlabel('CG location [$\% l_f$]')
+    plt.ylabel('Weight [lb$_f$]')
     plt.legend()
     plt.title(aircraft.mission)
     plt.show()
@@ -130,8 +132,8 @@ def CGExcursion(aircraft):
 # https://onedrive.live.com/edit.aspx?resid=951C12727E23B89A!843&cid=951c12727e23b89a&CT=1669160633240&OR=ItemsView
 
 def CG_EXC_2(aircraft):
-    static_margin = 0.0625
-    l_f = 49.5
+    static_margin = 0.0805
+    l_f = 49
     wing_pos = 0.49
 
     fig, ax = plt.subplots()
@@ -186,7 +188,7 @@ def CG_EXC_2(aircraft):
     # all payload dropped during attack
     aircraft.systems['Payload wing'].weight = 0
 
-    # aircraft.systems['Gun'].weight -= 600
+    aircraft.systems['Gun'].weight -= 582.5
 
     point(aircraft.CG(), aircraft.W_total(), 0, 100, "After attack")
 
@@ -216,8 +218,8 @@ def CG_EXC_2(aircraft):
     point(aircraft.CG(), aircraft.W_total(), 0, 100, "Deplane")
 
     # rearm
-    aircraft.systems['Payload wing'].weight = 10646
-    aircraft.systems['Gun'].weight = 1854
+    aircraft.systems['Payload wing'].weight = 11584.5
+    aircraft.systems['Gun'].weight = 915.5
     point(aircraft.CG(), aircraft.W_total(), 0, 100, "Re-arm")
 
     # refuel
@@ -238,9 +240,9 @@ def CG_EXC_2(aircraft):
     # In flight forward limit
     ax.axvline(x=CG_MAC(l_f, wing_pos, 0.44), linestyle='--', color='b', label='In flight forward limit')
     # Forward CG limit
-    ax.axvline(x=CG_MAC(l_f, wing_pos, 0.475), linestyle='--', color='k', label='Ground Forward Limit')
+    ax.axvline(x=CG_MAC(l_f, wing_pos, 0.49), linestyle='--', color='k', label='Ground Forward Limit')
     # # Aft CG limit
-    ax.axvline(x=CG_MAC(l_f, wing_pos, 0.52), linestyle='-.', color='k', label='Ground Aft Limit')
+    ax.axvline(x=CG_MAC(l_f, wing_pos, 0.55), linestyle='-.', color='k', label='Ground Aft Limit')
     # show the plot
     plt.xlabel('CG [% MAC]')
     plt.ylabel('W$_{TOTAL}$ [lb$_f$]')

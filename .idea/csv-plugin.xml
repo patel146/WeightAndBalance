@@ -178,6 +178,27 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\Logs\ESTIMATES2022-11-2421-59-45.837773.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="&#9;" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\Logs\ESTIMATES2022-11-2820-46-21.353240.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\Logs\ESTIMATES2022-11-2820-56-08.068249.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\MISSIONS.csv">
           <value>
             <Attribute>

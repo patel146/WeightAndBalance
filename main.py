@@ -50,9 +50,9 @@ concept_weight_estimates.mission = "ESTIMATES"
 fuel_wing_and_drop_tank = System("Fuel wing + drop tank", 5000, wing_pos, system_estimates)
 fuel_fuselage = System("Fuel fuselage", 4500, 0.49, system_estimates)
 
-payload_wing = System("Payload wing", 10646, wing_pos, system_estimates)
-# payload_internal_bay = System("Payload Internal Bay", 3000, 0.318, system_estimates)
-gun = System("Gun", 1854, ((11.2 / 2) / l_f.value), system_estimates)
+payload_wing = System("Payload wing", 11584.5, 0.505, system_estimates)
+# payload_internal_bay = System("Payload Internal Bay", 3000, 0.318, system_estimates) ((11.2 / 2) / l_f.value)
+gun = System("Gun", 915.5, ((11.2 / 2) / l_f.value), system_estimates)
 
 pilot = System("Pilot", 250, 0.15, system_estimates)
 # canopy = System("Canopy", 500, 0.1, system_estimates)
@@ -112,7 +112,7 @@ def all_missons():
 
 
 def calculate_estimates():
-    # plot.CGPlot(concept_weight_estimates)
+    plot.CGPlot(concept_weight_estimates)
     # plot.CGExcursion(concept_weight_estimates)
     results = {"CG": [concept_weight_estimates.CG(), '% l_f'],
                "Optimal Wing Pos": [concept_weight_estimates.systems['Wing'].loc, '%_f'],
@@ -145,7 +145,7 @@ def solve_wing_pos(aircraft):
 
 # plot.MTOW_Track()
 
-concept_weight_estimates.display_systems()
+# concept_weight_estimates.display_systems()
 plot.CG_EXC_2(concept_weight_estimates)
 
 

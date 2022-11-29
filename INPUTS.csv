@@ -1,6 +1,6 @@
 Variable,Value,units,desc
 K_w,1.0,-,-
-Λ_LE,25,u.deg,-
+Λ_LE,28,u.deg,-
 n_ult,9,-,-
 t_o_c,0.094,-,thickness to chord ratio
 λ,0.4,-,wing taper ratio
