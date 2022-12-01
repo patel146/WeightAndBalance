@@ -188,7 +188,8 @@ def CG_EXC_2(aircraft):
     # all payload dropped during attack
     aircraft.systems['Payload wing'].weight = 0
 
-    aircraft.systems['Gun'].weight -= 582.5
+    aircraft.systems['Gun'].weight -= 1650
+    aircraft.systems['Gun2'].weight -= 1650
 
     point(aircraft.CG(), aircraft.W_total(), 0, 100, "After attack")
 
@@ -219,7 +220,10 @@ def CG_EXC_2(aircraft):
 
     # rearm
     aircraft.systems['Payload wing'].weight = 11584.5
-    aircraft.systems['Gun'].weight = 915.5
+    aircraft.systems['Gun'].weight = 1900
+    aircraft.systems['Gun2'].weight = 1900
+    
+    
     point(aircraft.CG(), aircraft.W_total(), 0, 100, "Re-arm")
 
     # refuel

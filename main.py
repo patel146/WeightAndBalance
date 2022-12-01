@@ -22,7 +22,7 @@ from CSV_Handler import CAS_SYSTEMS, STEALTH_SYSTEMS, MAX_PAYLOAD_SYSTEMS
 
 # TODO get ac empty weight
 
-wing_pos = 0.49
+wing_pos = 0.495
 
 concept_max_payload = Aircraft()
 
@@ -52,9 +52,10 @@ fuel_fuselage = System("Fuel fuselage", 4500, 0.49, system_estimates)
 
 payload_wing = System("Payload wing", 11584.5, 0.505, system_estimates)
 # payload_internal_bay = System("Payload Internal Bay", 3000, 0.318, system_estimates) ((11.2 / 2) / l_f.value)
-gun = System("Gun", 915.5, ((11.2 / 2) / l_f.value), system_estimates)
+gun = System("Gun", 1900, 0.46, system_estimates)
+gun2 = System("Gun2", 1900, 0.46, system_estimates)
 
-pilot = System("Pilot", 250, 0.15, system_estimates)
+pilot = System("Pilot", 250, 0.0982, system_estimates)
 # canopy = System("Canopy", 500, 0.1, system_estimates)
 
 wing = System("Wing", estimates["Wing"], wing_pos, system_estimates)
@@ -125,7 +126,7 @@ def calculate_estimates():
                "FDGW": [concept_weight_estimates.FDGW(), 'lbf'],
                "W_T": [concept_weight_estimates.W_total(), 'lbf']
                }
-    logger.create_log_file(results, concept_weight_estimates)
+    # logger.create_log_file(results, concept_weight_estimates)
 
 
 # logger.log_inputs()
@@ -146,11 +147,11 @@ def solve_wing_pos(aircraft):
 # plot.MTOW_Track()
 
 # concept_weight_estimates.display_systems()
-plot.CG_EXC_2(concept_weight_estimates)
+# plot.CG_EXC_2(concept_weight_estimates)
 
 
 # solve_wing_pos(concept)
-# calculate_estimates()
+calculate_estimates()
 
 # window = tk.Tk()
 # label = tk.Label(window, text='Test')
