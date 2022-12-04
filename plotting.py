@@ -16,18 +16,20 @@ def CGPlot(aircraft):
     for name, system in aircraft.systems.items():
         x.append(system.loc)
         y.append(system.weight)
+        labels.append(name)
         ax.annotate(name, xy=(system.loc, system.weight), xycoords='data',
                     xytext=(system.loc, system.weight), textcoords='data',
                     horizontalalignment='right', verticalalignment='top',
                     )
 
     print("CG: ", aircraft.CG())
-    ax.scatter(x, y)
+    ax.scatter(x, y, color='k', s=8, label='Subsystems')
     plt.axvline(x=aircraft.CG(), linestyle='--', color='b', label='CG')
-    plt.xlabel('CG location [$\% l_f$]')
+    plt.xlabel('CG location [$\%  l_f$]')
     plt.ylabel('Weight [lb$_f$]')
     plt.legend()
-    plt.title(aircraft.mission)
+    # plt.title(aircraft.mission)
+    plt.tight_layout()
     plt.show()
 
 
@@ -145,11 +147,11 @@ def CG_EXC_2(aircraft):
         xs.append(CG_MAC(l_f, wing_pos, CG))
         ys.append(W)
         plt.scatter(CG_MAC(l_f, wing_pos, CG), W, color='k')
-        plt.annotate(name, xy=(CG_MAC(l_f, wing_pos, CG), W), xycoords='data',
-                     xytext=(CG_MAC(l_f, wing_pos, CG) + xoff, W + yoff), textcoords='data',
-                     arrowprops=dict(arrowstyle="->",
-                                     connectionstyle="arc3")
-                     )
+        # plt.annotate(name, xy=(CG_MAC(l_f, wing_pos, CG), W), xycoords='data',
+        #              xytext=(CG_MAC(l_f, wing_pos, CG) + xoff, W + yoff), textcoords='data',
+        #              arrowprops=dict(arrowstyle="->",
+        #                              connectionstyle="arc3")
+        #              )
 
     # helper function to get point given fuel fraction and fuel tank to be used (only for cruise, climb) NOT payload
     def after(name, fuel_tank, fuel_fraction, plot=False):
@@ -236,16 +238,18 @@ def CG_EXC_2(aircraft):
     # CG Limits
     # Static Margin
 
-    ax.axvline(x=CG_MAC(l_f, wing_pos, aircraft.CG()) + static_margin, linestyle='-.', color='b', label='Static Margin')
+    ax.axvline(x=CG_MAC(l_f, wing_pos, aircraft.CG()) + static_margin, linestyle='-.', color='b', label='MS')
     # In flight forward limit
-    ax.axvline(x=CG_MAC(l_f, wing_pos, 0.44), linestyle='--', color='b', label='In flight forward limit')
+    # ax.axvline(x=CG_MAC(l_f, wing_pos, 0.44), linestyle='--', color='b', label='In flight forward limit')
     # Forward CG limit
-    ax.axvline(x=CG_MAC(l_f, wing_pos, 0.49), linestyle='--', color='k', label='Ground Forward Limit')
+    # ax.axvline(x=CG_MAC(l_f, wing_pos, 0.49), linestyle='--', color='k', label='Ground Forward Limit')
     # # Aft CG limit
-    ax.axvline(x=CG_MAC(l_f, wing_pos, 0.55), linestyle='-.', color='k', label='Ground Aft Limit')
+    # ax.axvline(x=CG_MAC(l_f, wing_pos, 0.55), linestyle='-.', color='k', label='Ground Aft Limit')
     # show the plot
-    plt.xlabel('CG [% MAC]')
-    plt.ylabel('W$_{TOTAL}$ [lb$_f$]')
+    plt.xlabel('CG [% CAM]')
+    plt.ylabel('W$_{T}$ [lb$_f$]')
+    plt.ylim(22000, 40000)
+    plt.xlim(0.14, 0.28)
     plt.legend()
     plt.tight_layout()
     plt.show()
@@ -253,11 +257,13 @@ def CG_EXC_2(aircraft):
 
 # MTOW tracking plot
 def MTOW_Track():
-    names = [str(i) for i in range(1, 8)]
-    MTOWS = [54291, 40870, 41722, 35608, 35608, 37500, 34790]
+    names = [str(i) for i in range(1, 11)]
+    MTOWS = [54291, 40870, 41722, 35608, 35608, 37500, 34790, 34790, 34790, 34790]
     fig, ax = plt.subplots()
+    plt.gca().yaxis.grid(True)
     plt.bar(names, MTOWS)
     plt.xlabel('Iteration')
     plt.ylabel('MTOW [lb$_f$]')
+    plt.ylim(30000, 60000)
     plt.tight_layout()
     plt.show()

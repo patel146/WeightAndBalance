@@ -144,9 +144,10 @@ def solve_wing_pos(aircraft):
 
 
 # plot.MTOW_Track()
+plot.CGPlot(concept_weight_estimates)
 
 # concept_weight_estimates.display_systems()
-plot.CG_EXC_2(concept_weight_estimates)
+# plot.CG_EXC_2(concept_weight_estimates)
 
 
 # solve_wing_pos(concept)
