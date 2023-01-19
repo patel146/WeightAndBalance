@@ -52,7 +52,8 @@ fuel_fuselage = System("Fuel fuselage", 4500, 0.39, system_estimates)
 
 payload_wing = System("Payload wing", 11584.5, 0.505, system_estimates)
 # payload_internal_bay = System("Payload Internal Bay", 3000, 0.318, system_estimates) ((11.2 / 2) / l_f.value)
-gun = System("Gun", 915.5, ((11.2 / 2) / l_f.value), system_estimates)
+gun = System("Gun", 915.5, 0.45, system_estimates)
+gun2 = System("Gun", 915.5, 0.45, system_estimates)
 
 pilot = System("Pilot", 250, 0.17, system_estimates)
 # canopy = System("Canopy", 500, 0.1, system_estimates)
@@ -91,7 +92,7 @@ furnishings = System("Furnishings", estimates["Furnishings"], 0.2, system_estima
 
 O2_system = System("O2 System", estimates["O2 System"], 0.24, system_estimates)  # 29.5 lbf
 
-armour = System('Pilot Armour', 1250, 0.17, system_estimates)
+armour = System('Pilot Armour', 333, 0.17, system_estimates)
 
 
 def all_missons():

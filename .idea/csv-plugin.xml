@@ -213,6 +213,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\Logs\ESTIMATES2023-01-1717-07-04.776073.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\Logs\ESTIMATES2023-01-1717-13-56.180098.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\MISSIONS.csv">
           <value>
             <Attribute>
