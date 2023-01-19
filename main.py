@@ -61,6 +61,7 @@ pilot = System("Pilot", 250, 0.17, system_estimates)
 wing = System("Wing", estimates["Wing"], wing_pos, system_estimates)
 
 powerplant = System("Powerplant", estimates['Powerplant'], 0.84, system_estimates)
+print(estimates['Powerplant'])
 
 fuselage = System("Fuselage", estimates["Fuselage"], 0.45, system_estimates)
 
@@ -92,7 +93,7 @@ furnishings = System("Furnishings", estimates["Furnishings"], 0.2, system_estima
 
 O2_system = System("O2 System", estimates["O2 System"], 0.24, system_estimates)  # 29.5 lbf
 
-armour = System('Pilot Armour', 333, 0.17, system_estimates)
+armour = System('Pilot Armour', 850, 0.17, system_estimates)
 
 
 def all_missons():
