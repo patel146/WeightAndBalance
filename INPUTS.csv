@@ -2,18 +2,18 @@ Variable,Value,units,desc
 K_w,1.0,-,-
 Λ_LE,28,u.deg,-
 n_ult,9,-,-
-t_o_c,0.094,-,thickness to chord ratio
+t_o_c,0.09,-,thickness to chord ratio
 λ,0.4,-,wing taper ratio
 A,5.5,-,aspect ratio (using A instead of AR because Roskam uses A)
-S,438.76,ui.ft ** 2,wing area
-W_TO,34790,ui.lbf,MTOW for critical mission
+S,415,ui.ft ** 2,wing area
+W_TO,34807,ui.lbf,MTOW for critical mission (34790)
 S_h,155,ui.ft ** 2,-
 b_h,24.9,ui.ft,-
 t_r_h,0.5,ui.ft,max root thickness of horizontal tail
 c_bar,10.35,ui.ft,-
 l_h,22.48,ui.ft,-
 z_h,0,-,As long as horizontal stablilizer is not mounted on vertical tail equation is simplified
-M_H,0.95,-,Maximum mach number at sea level
+M_H,0.90,-,Maximum mach number at sea level
 A_v,5,-,Aspect ratio of vertical tail
 S_v,40.24,ui.ft ** 2,vertical tail area
 l_v,20.69,ui.ft,vertical tail location
@@ -26,14 +26,14 @@ h_f,7,ui.ft,maximum fuselage height (should be in ft)
 N_inl,2,-,number of inlets
 A_inl,6.2,ui.ft ** 2,capture area per inlet in ft^2
 l_n,10,ui.ft,nacelle length from inlet to compressor face
-P_2,30,(ui.lbf / ui.inch ** 2),max static pressure at engine compressor face in psi (ranges from 15 to 50 psi)
-W_pwr,3700,-,total weight of engines
-W_F,17392,ui.lbf,mission fuel weight including reserves
+P_2,15,(ui.lbf / ui.inch ** 2),max static pressure at engine compressor face in psi (ranges from 15 to 50 psi)
+W_pwr,3034,-,total weight of engines
+W_F,8641,ui.lbf,mission fuel weight including reserves
 K_fsp,6.55,(ui.lbf / ui.gallon),just a constant defined in pg. 91 assuming we are using JP-4 jet fuel
 N_pil,1,-,number of pilots
 N_e,1,-,number of engines
 K_fcf,138,-,pg.100
-APU_est_factor,0.013,-,range between 0.004 to 0.013 from the equation
-W_pay,12500,ui.lbf,-
-PAINT_EST_FACTOR,0.006,-,ranges from 0.003 to 0.006 use conservative considering stealth paint might be used
+APU_est_factor,0.004,-,range between 0.004 to 0.013 from the equation
+W_pay,14000,ui.lbf,-
+PAINT_EST_FACTOR,0.003,-,ranges from 0.003 to 0.006 use conservative considering stealth paint might be used
 ,,,
