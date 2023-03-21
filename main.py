@@ -6,6 +6,7 @@ from ClassIIEstimates import estimates, l_f
 import plotting as plot
 import logger
 from CSV_Handler import CAS_SYSTEMS, STEALTH_SYSTEMS, MAX_PAYLOAD_SYSTEMS
+from actual_aircraft import actual_weights
 
 # TODO recursive fuel and wing location as close to CG as possible ******
 # TODO do CG as percentage of MAC
@@ -23,7 +24,6 @@ from CSV_Handler import CAS_SYSTEMS, STEALTH_SYSTEMS, MAX_PAYLOAD_SYSTEMS
 # TODO get ac empty weight
 
 wing_pos = 0.51
-
 
 concept_max_payload = Aircraft()
 
@@ -48,21 +48,21 @@ concept_weight_estimates = Aircraft()
 concept_weight_estimates.systems = system_estimates
 concept_weight_estimates.mission = "ESTIMATES"
 
-fuel_wing_and_drop_tank = System("Fuel wing + drop tank", 5000*(1/0.9), wing_pos, system_estimates, z_loc=1.06)
-fuel_fuselage = System("Fuel fuselage", 4500*(1/0.9), 0.39, system_estimates, z_loc=2.92)
+fuel_wing_and_drop_tank = System("Fuel wing + drop tank", 5000 * (1 / 0.9), wing_pos, system_estimates, z_loc=1.06)
+fuel_fuselage = System("Fuel fuselage", 4500 * (1 / 0.9), 0.39, system_estimates, z_loc=2.92)
 
-payload_wing = System("Payload wing", 11000*(1/0.9), 0.505, system_estimates, z_loc=0.13)
+payload_wing = System("Payload wing", 11000 * (1 / 0.9), 0.505, system_estimates, z_loc=0.13)
 # payload_internal_bay = System("Payload Internal Bay", 3000, 0.318, system_estimates) ((11.2 / 2) / l_f.value)
-gun = System("Gun", 1040*(1/0.9), 0.45, system_estimates, z_loc=0.6)
-gun2 = System("Gun", 1040*(1/0.9), 0.45, system_estimates, z_loc=0.6)
+gun = System("Gun", 1040 * (1 / 0.9), 0.45, system_estimates, z_loc=0.6)
+gun2 = System("Gun", 1040 * (1 / 0.9), 0.45, system_estimates, z_loc=0.6)
 
-pilot = System("Pilot", 250*(1/0.9), 0.17, system_estimates, z_loc=4.23)
+pilot = System("Pilot", 250 * (1 / 0.9), 0.17, system_estimates, z_loc=4.23)
 # canopy = System("Canopy", 500, 0.1, system_estimates)
 
 # wing = System("Wing", estimates["Wing"], wing_pos, system_estimates)
-wing = System("Wing", 2732*(1/0.9), wing_pos, system_estimates,z_loc=1.06)
+wing = System("Wing", 2732 * (1 / 0.9), wing_pos, system_estimates, z_loc=1.06)
 
-powerplant = System("Powerplant", 3034*(1/0.9), 0.84, system_estimates, z_loc=3.2)
+powerplant = System("Powerplant", 3034 * (1 / 0.9), 0.84, system_estimates, z_loc=3.2)
 
 fuselage = System("Fuselage", estimates['Fuselage'], 0.45, system_estimates, z_loc=3.2)
 
@@ -70,7 +70,7 @@ landing_gear = System("Landing Gear", 1200, 0.4, system_estimates, z_loc=0.5)
 
 nacelle = System("Nacelle", estimates["Nacelle"], 0.65, system_estimates, z_loc=3.2)
 
-FCS = System("FCS", 850*(1/0.9), 0.38, system_estimates, z_loc=3.2)
+FCS = System("FCS", 850 * (1 / 0.9), 0.38, system_estimates, z_loc=3.2)
 
 VT = System("VT", estimates["Vertical Tail"], 0.88, system_estimates, z_loc=8.1)
 
@@ -131,6 +131,23 @@ def calculate_estimates():
     logger.create_log_file(results, concept_weight_estimates)
 
 
+def calculate_actuals():
+    plot.CGPlot(actual_weights)
+    # plot.CGExcursion(concept_weight_estimates)
+    results = {"CG": [actual_weights.CG(), '% l_f'],
+               "Optimal Wing Pos": [actual_weights.systems['Wing'].loc, '%_f'],
+               "Wing Weight": [actual_weights.systems['Wing'].weight, 'lbf'],
+               "Empty Weight": [actual_weights.W_e(), 'lbf'],
+               "CG VT": [actual_weights.systems['VT'].loc, '% l_f'],
+               "CG HT": [actual_weights.systems['HT'].loc, '% l_f'],
+               "CG w/out HT": [actual_weights.CG_no_HT(), '% l_f'],
+               "Weight w/out HT": [actual_weights.W_no_HT(), 'lbf'],
+               "FDGW": [actual_weights.FDGW(), 'lbf'],
+               "W_T": [actual_weights.W_total(), 'lbf']
+               }
+    logger.create_log_file(results, actual_weights)
+
+
 # logger.log_inputs()
 # logger.log_results(concept.CG())
 # logger.log_weights(concept)
@@ -154,8 +171,20 @@ def solve_wing_pos(aircraft):
 #
 # # solve_wing_pos(concept)
 calculate_estimates()
+calculate_actuals()
 
-print(concept_weight_estimates.W_total())
+
+def print_weights(ac):
+    print("-" * 10)
+    print(ac.W_total())
+    print(ac.Ixx())
+    print(ac.Iyy())
+    print(ac.Izz())
+    print(ac.Izx())
+
+
+# print_weights(concept_weight_estimates)
+print_weights(actual_weights)
 
 # window = tk.Tk()
 # label = tk.Label(window, text='Test')
