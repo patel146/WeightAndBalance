@@ -1,0 +1,73 @@
+Variable,Value,units
+K_w,1.0,-
+Λ_LE,28.0,u.deg
+n_ult,9.0,-
+t_o_c,0.09,-
+λ,0.4,-
+A,5.5,-
+S,415.0,ui.ft ** 2
+W_TO,35264.0,ui.lbf
+S_h,155.0,ui.ft ** 2
+b_h,24.9,ui.ft
+t_r_h,0.5,ui.ft
+c_bar,10.35,ui.ft
+l_h,22.48,ui.ft
+z_h,0.0,-
+M_H,0.9,-
+A_v,5.0,-
+S_v,40.24,ui.ft ** 2
+l_v,20.69,ui.ft
+S_r,20.0,ui.ft ** 2
+λ_v,0.4,-
+Λ_qtrchrd_v,10.0,u.deg
+K_inl,1.25,-
+l_f,50.0,ui.ft
+h_f,7.0,ui.ft
+N_inl,2.0,-
+A_inl,6.2,ui.ft ** 2
+l_n,10.0,ui.ft
+P_2,15.0,(ui.lbf / ui.inch ** 2)
+W_pwr,3034.0,-
+W_F,8641.0,ui.lbf
+K_fsp,6.55,(ui.lbf / ui.gallon)
+N_pil,1.0,-
+N_e,1.0,-
+K_fcf,138.0,-
+APU_est_factor,0.004,-
+W_pay,14000.0,ui.lbf
+PAINT_EST_FACTOR,0.003,-
+,,
+System	Weight [lbf]	Location [% lf]
+Fuel wing + drop tank	4750.0	0.51
+Fuel fuselage	4275.0	0.39
+Payload wing	11005.275	0.505
+Gun	869.7249999999999	0.45
+Pilot	237.5	0.17
+Wing	2595.4	0.51
+Powerplant	2882.2999999999997	0.84
+Fuselage	2850.0	0.45
+Landing Gear	1140.0	0.4
+Nacelle	432.72972484494437	0.65
+FCS	950.0	0.38
+VT	246.26418524835216	0.88
+HT	545.9677177619834	0.92
+APU	134.0032	0.3
+Avionics	427.3077504	0.214
+Fuel Systems	394.04048087017486	0.6
+Elec. Systems	375.7535584152745	0.5
+Paint	100.5024	0.4
+Env Systems	139.78703593347763	0.3
+Furnishings	89.30890518170128	0.2
+O2 System	16.054999999999996	0.24
+Pilot Armour	807.5	0.17
+Result	Value	Units
+CG	0.5025121975185308	% l_f
+Optimal Wing Pos	0.51	%_f
+Wing Weight	2595.4	lbf
+Empty Weight	14126.919958655906	lbf
+CG VT	0.88	% l_f
+CG HT	0.92	% l_f
+CG w/out HT	0.49594696064873184	% l_f
+Weight w/out HT	34718.452240893916	lbf
+FDGW	26239.419958655904	lbf
+W_T	35264.419958655904	lbf
