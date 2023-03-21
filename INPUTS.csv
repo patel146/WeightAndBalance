@@ -6,7 +6,7 @@ t_o_c,0.09,-,thickness to chord ratio
 λ,0.4,-,wing taper ratio
 A,5.5,-,aspect ratio (using A instead of AR because Roskam uses A)
 S,415,ui.ft ** 2,wing area
-W_TO,34804,ui.lbf,MTOW for critical mission (34790)
+W_TO,34744,ui.lbf,MTOW for critical mission (34790)
 S_h,155,ui.ft ** 2,-
 b_h,24.9,ui.ft,-
 t_r_h,0.5,ui.ft,max root thickness of horizontal tail
